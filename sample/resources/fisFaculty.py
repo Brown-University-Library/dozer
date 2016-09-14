@@ -1,5 +1,5 @@
 from dozer.statements import Collection, Schema, Attribute
-from ..properties import foaf, vivo, blocal, rdfs, rdf
+from properties import foaf, vivo, blocal, rdfs, rdf
 
 #rename presets as only; add parameter for allowed
 fisFacultySchema = Schema({

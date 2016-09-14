@@ -1,11 +1,22 @@
 #!flask/bin/python
 from flask import Flask, jsonify, abort, request, make_response, url_for
 from flask.ext.cors import CORS
-
-from resources.fisFaculty import fisFaculty
+import json
 
 app = Flask(__name__)
 CORS(app)
+
+from context import dozer
+from dozer.sparqlinterface import SPARQLInterface
+
+spq = SPARQLInterface(
+		'http://localhost:8082/VIVO/query',
+		'http://localhost:8080/rab/api/sparqlUpdate',
+		'http')
+
+from resources.fisFaculty import fisFaculty
+
+fisFaculty.register_endpoint(spq)
 
 @app.route('/rabdata/fisfeed/faculty/', methods=['GET'])
 def index():
@@ -13,7 +24,8 @@ def index():
 		allFisFaculty = fisFaculty.search()
 	except:
 		return 404
-	return json.dumps(allFisFaculty)
+	return json.dumps([ fac.to_dict()
+							for fac in allFisFaculty])
 
 
 @app.route('/rabdata/fisfeed/faculty/', methods=['POST'])

@@ -1,6 +1,6 @@
 from collections import defaultdict
 
-import rdflib
+#import rdflib
 
 import requests
 import re
@@ -54,7 +54,8 @@ class SPARQLRequest(object):
 			'anyURI': _XSD_encode_uri,
 			'string': _XSD_encode_string,
 			'dateTime': _XSD_encode_dateTime,
-			'datetime': _XSD_encode_dateTime
+			'datetime': _XSD_encode_dateTime,
+			'date': _XSD_encode_dateTime
 		}
 		self.triples = resource.to_triples()
 		self.named_graph = _XSD_encode_uri(
