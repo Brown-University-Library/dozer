@@ -1,4 +1,4 @@
-from statements import Predicate
+from dozer.statements import Predicate
 
 
 ### Model Namespace ###

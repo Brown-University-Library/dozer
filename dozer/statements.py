@@ -10,6 +10,12 @@ def _validate_uri(value):
 		raise ValueError("Bad URI: ", value)
 	return value
 
+def _validate_int(value):
+	if isinstance(value, int):
+		return value
+	else:
+		raise ValueError("Bad int: ",value)
+
 def _validate_datetime(value):
 	try:
 		datetime.datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%fZ')
@@ -33,8 +39,12 @@ class Predicate(object):
 			self.validator = _validate_uri
 		elif datatype == 'dateTime' or datatype == 'datetime':
 			self.validator = _validate_datetime
+		elif datatype == 'date':
+			self.validator = _validate_datetime
 		elif datatype == 'string':
 			self.validator = _validate_string
+		elif datatype == 'int':
+			self.validator = _validate_int
 
 	def validate(self, value):
 		return self.validator(value)
