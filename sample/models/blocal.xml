@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?><rdf:RDF
+    xmlns:vitro="http://vitro.mannlib.cornell.edu/ns/vitro/0.7#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:bdisplay="http://vivo.brown.edu/ontology/display#"
+    xmlns:afn="http://jena.hpl.hp.com/ARQ/function#"
+    xmlns:bcite="http://vivo.brown.edu/ontology/citation#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:j.0="http://purl.obolibrary.org/obo/"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:blocal="http://vivo.brown.edu/ontology/vivo-brown/"
+    xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+    xmlns:bprofile="http://vivo.brown.edu/ontology/profile#"
+    xmlns:vivo="http://vivoweb.org/ontology/core#"
+    xmlns:foaf="http://xmlns.com/foaf/0.1/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#" > 
+  <rdf:Description rdf:about="http://vivo.brown.edu/ontology/vivo-brown/Delegate">
+    <vitro:hiddenFromDisplayBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <vitro:prohibitedFromUpdateBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    <vitro:inClassGroup rdf:resource="http://vivo.brown.edu/individual/vitroClassGrouppeople"/>
+    <vitro:displayLimitAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#int">-1</vitro:displayLimitAnnot>
+    <vitro:displayRankAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#int">-1</vitro:displayRankAnnot>
+    <rdfs:label xml:lang="en-US">Delegate</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://vivo.brown.edu/ontology/vivo-brown/hasTeacher">
+    <owl:inverseOf rdf:resource="http://vivo.brown.edu/ontology/vivo-brown/teacherFor"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:range rdf:resource="http://xmlns.com/foaf/0.1/Agent"/>
+    <vitro:displayLimitAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#int">5</vitro:displayLimitAnnot>
+    <rdfs:domain rdf:resource="http://vivoweb.org/ontology/core#Course"/>
+    <rdfs:label xml:lang="en-US">taught by</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://vivo.brown.edu/ontology/vivo-brown/netId">
+    <vitro:hiddenFromDisplayBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#curator"/>
+    <vitro:prohibitedFromUpdateBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#curator"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <vitro:exampleAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Brown University Net ID.  </vitro:exampleAnnot>
+    <vitro:inPropertyGroupAnnot rdf:resource="http://vivo.brown.edu/individual/vitroPropertyGroupidentifiers"/>
+    <rdfs:domain rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    <rdfs:label xml:lang="en-US">Net ID</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://vivo.brown.edu/ontology/vivo-brown/geographicResearchAreaOf">
+    <owl:inverseOf rdf:resource="http://vivo.brown.edu/ontology/vivo-brown/hasGeographicResearchArea"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <vitro:inPropertyGroupAnnot rdf:resource="http://vivo.brown.edu/individual/vitroPropertyGroupoverview"/>
+    <rdfs:domain rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <vitro:displayRankAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#int">60</vitro:displayRankAnnot>
+    <rdfs:label xml:lang="en-US">research area of</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://vivo.brown.edu/ontology/vivo-brown/awardsAndHonors">
+    <vitro:hiddenFromDisplayBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <vitro:prohibitedFromUpdateBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <vitro:inPropertyGroupAnnot rdf:resource="http://vivo.brown.edu/individual/vitroPropertyGroupbiography"/>
+    <vitro:displayRankAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#int">20</vitro:displayRankAnnot>
+    <rdfs:label xml:lang="en-US">awards and honors</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://vivo.brown.edu/ontology/vivo-brown/Country">
+    <vitro:hiddenFromDisplayBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <vitro:prohibitedFromUpdateBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://vivo.brown.edu/ontology/vivo-brown/Place"/>
+    <vitro:inClassGroup rdf:resource="http://vivo.brown.edu/individual/vitroClassGrouplocations"/>
+    <vitro:displayLimitAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#int">-1</vitro:displayLimitAnnot>
+    <vitro:hiddenFromPublishBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <vitro:displayRankAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#int">-1</vitro:displayRankAnnot>
+    <rdfs:label xml:lang="en-US">Country</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://vivo.brown.edu/ontology/vivo-brown/scholarlyWork">
+    <vitro:hiddenFromDisplayBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <vitro:prohibitedFromUpdateBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <vitro:inPropertyGroupAnnot rdf:resource="http://vivo.brown.edu/individual/vitroPropertyGroupresearch"/>
+    <vitro:displayRankAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#int">5</vitro:displayRankAnnot>
+    <rdfs:label xml:lang="en-US">scholarly work</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://vivo.brown.edu/ontology/vivo-brown/ClinicalDepartment">
+    <vitro:hiddenFromDisplayBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <vitro:prohibitedFromUpdateBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://xmlns.com/foaf/0.1/Organization"/>
+    <vitro:inClassGroup rdf:resource="http://vivo.brown.edu/individual/vitroClassGroupBrownOUs"/>
+    <vitro:descriptionAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A type of Brown organizational unit</vitro:descriptionAnnot>
+    <vitro:hiddenFromPublishBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <rdfs:label xml:lang="en-US">Clinical Department</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://vivo.brown.edu/ontology/vivo-brown/pubmedFirstName">
+    <vitro:hiddenFromDisplayBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#dbAdmin"/>
+    <vitro:prohibitedFromUpdateBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#dbAdmin"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <vitro:hiddenFromPublishBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#dbAdmin"/>
+    <rdfs:label xml:lang="en-US">PubMed first name</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://vivo.brown.edu/ontology/vivo-brown/affiliations">
+    <vitro:hiddenFromDisplayBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <vitro:prohibitedFromUpdateBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <vitro:inPropertyGroupAnnot rdf:resource="http://vivo.brown.edu/individual/vitroPropertyGroupaffiliation"/>
+    <vitro:displayRankAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#int">40</vitro:displayRankAnnot>
+    <rdfs:label xml:lang="en-US">affiliations</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://vivo.brown.edu/ontology/vivo-brown/drrbWebPageOf">
+    <owl:inverseOf rdf:resource="http://vivo.brown.edu/ontology/vivo-brown/drrbWebPage"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <vitro:displayLimitAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#int">5</vitro:displayLimitAnnot>
+    <rdfs:domain rdf:resource="http://vivoweb.org/ontology/core#URLLink"/>
+    <vitro:displayRankAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#int">11</vitro:displayRankAnnot>
+    <rdfs:label xml:lang="en-US">features</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://vivo.brown.edu/ontology/vivo-brown/shortId">
+    <vitro:hiddenFromDisplayBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#editor"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <vitro:publicDescriptionAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Brown University shortId.</vitro:publicDescriptionAnnot>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <vitro:inPropertyGroupAnnot rdf:resource="http://vivo.brown.edu/individual/vitroPropertyGroupidentifiers"/>
+    <vitro:prohibitedFromUpdateBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#dbAdmin"/>
+    <vitro:exampleAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Brown University shortId.</vitro:exampleAnnot>
+    <vitro:descriptionAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Brown University shortId.</vitro:descriptionAnnot>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:domain rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    <rdfs:label xml:lang="en-US">shortId</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://vivo.brown.edu/ontology/vivo-brown/hasAffiliation">
+    <vitro:hiddenFromDisplayBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <vitro:prohibitedFromUpdateBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <vitro:publicDescriptionAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Affiliations with organizational units.  </vitro:publicDescriptionAnnot>
+    <rdfs:range rdf:resource="http://xmlns.com/foaf/0.1/Organization"/>
+    <vitro:selectFromExistingAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</vitro:selectFromExistingAnnot>
+    <vitro:displayLimitAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#int">5</vitro:displayLimitAnnot>
+    <rdfs:domain rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    <rdfs:label xml:lang="en-US">affiliations</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://vivo.brown.edu/ontology/vivo-brown/wikidataID">
+    <vitro:hiddenFromDisplayBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#dbAdmin"/>
+    <vitro:prohibitedFromUpdateBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#dbAdmin"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <vitro:inPropertyGroupAnnot rdf:resource="http://vivo.brown.edu/individual/vitroPropertyGroupidentifiers"/>
+    <vitro:hiddenFromPublishBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#dbAdmin"/>
+    <rdfs:label xml:lang="en-US">Wikidata ID</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://vivo.brown.edu/ontology/vivo-brown/hasGeographicResearchArea">
+    <owl:inverseOf rdf:resource="http://vivo.brown.edu/ontology/vivo-brown/geographicResearchAreaOf"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <vitro:inPropertyGroupAnnot rdf:resource="http://vivo.brown.edu/individual/vitroPropertyGroupresearch"/>
+    <vitro:displayRankAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#int">60</vitro:displayRankAnnot>
+    <rdfs:label xml:lang="en-US">geographic research area</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://vivo.brown.edu/ontology/vivo-brown/fisCreated">
+    <vitro:hiddenFromDisplayBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#curator"/>
+    <vitro:prohibitedFromUpdateBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#curator"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
+    <vitro:inPropertyGroupAnnot rdf:resource="http://vivo.brown.edu/individual/vitroPropertyGroupidentifiers"/>
+    <rdfs:label xml:lang="en-US">FIS created date</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://vivo.brown.edu/ontology/vivo-brown/orgUnit">
+    <vitro:hiddenFromDisplayBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#curator"/>
+    <vitro:prohibitedFromUpdateBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#curator"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <vitro:inPropertyGroupAnnot rdf:resource="http://vivo.brown.edu/individual/vitroPropertyGroupaffiliation"/>
+    <vitro:descriptionAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Brown organizational unit as reported by LDAP.  </vitro:descriptionAnnot>
+    <rdfs:domain rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    <rdfs:label xml:lang="en-US">organizational unit</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://vivo.brown.edu/ontology/vivo-brown/degreeDate">
+    <vitro:hiddenFromDisplayBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <vitro:prohibitedFromUpdateBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#gYear"/>
+    <vitro:inPropertyGroupAnnot rdf:resource="http://vivo.brown.edu/individual/vitroPropertyGrouptime"/>
+    <rdfs:domain rdf:resource="http://vivoweb.org/ontology/core#EducationalTraining"/>
+    <rdfs:label xml:lang="en-US">year</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://vivo.brown.edu/ontology/vivo-brown/drrbWebPage">
+    <vitro:displayLimitAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#int">5</vitro:displayLimitAnnot>
+    <owl:inverseOf rdf:resource="http://vivo.brown.edu/ontology/vivo-brown/drrbWebPageOf"/>
+    <vitro:selectFromExistingAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</vitro:selectFromExistingAnnot>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <vitro:hiddenFromDisplayBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <vitro:inPropertyGroupAnnot rdf:resource="http://vivo.brown.edu/individual/vitroPropertyGroupbiography"/>
+    <rdfs:range rdf:resource="http://vivoweb.org/ontology/core#URLLink"/>
+    <rdfs:label xml:lang="en-US">on the Web</rdfs:label>
+    <vitro:prohibitedFromUpdateBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <vitro:displayRankAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#int">11</vitro:displayRankAnnot>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://vivo.brown.edu/ontology/vivo-brown/InstituteCenterProgram">
+    <vitro:hiddenFromDisplayBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <vitro:prohibitedFromUpdateBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://xmlns.com/foaf/0.1/Organization"/>
+    <vitro:descriptionAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Requested grouping for Brown local org units. </vitro:descriptionAnnot>
+    <rdfs:label xml:lang="en-US">Centers, Programs, and Institutes</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://vivo.brown.edu/ontology/vivo-brown/BrownThing">
+    <vitro:hiddenFromDisplayBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#curator"/>
+    <vitro:prohibitedFromUpdateBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#curator"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <vitro:exampleAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Any Thing related to Brown</vitro:exampleAnnot>
+    <vitro:descriptionAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Used for restricting people, organizations, etc to Brown.  </vitro:descriptionAnnot>
+    <vitro:isMenuPageIntersectionClass>true</vitro:isMenuPageIntersectionClass>
+    <rdfs:label xml:lang="en-US">Organization or Person at Brown</rdfs:label>
+    <vitro:shortDef rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Generic Brown Thing</vitro:shortDef>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://vivo.brown.edu/ontology/vivo-brown/previousImage">
+    <vitro:hiddenFromDisplayBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#dbAdmin"/>
+    <vitro:prohibitedFromUpdateBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#dbAdmin"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <vitro:selectFromExistingAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</vitro:selectFromExistingAnnot>
+    <vitro:displayLimitAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#int">5</vitro:displayLimitAnnot>
+    <rdfs:label xml:lang="en-US">previous image</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://vivo.brown.edu/ontology/vivo-brown/researchStatement">
+    <vitro:hiddenFromDisplayBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <vitro:inPropertyGroupAnnot rdf:resource="http://vivo.brown.edu/individual/vitroPropertyGroupresearch"/>
+    <vitro:descriptionAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Long form research statement imported from the DRRB.</vitro:descriptionAnnot>
+    <rdfs:domain rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <vitro:publicDescriptionAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Faculty research statement.</vitro:publicDescriptionAnnot>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <vitro:prohibitedFromUpdateBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <vitro:displayRankAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#int">20</vitro:displayRankAnnot>
+    <rdfs:label xml:lang="en-US">research statement</rdfs:label>
+    <vitro:displayLimitAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</vitro:displayLimitAnnot>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://vivo.brown.edu/ontology/vivo-brown/delegateFor">
+    <vitro:hiddenFromDisplayBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <owl:inverseOf rdf:resource="http://vivo.brown.edu/ontology/vivo-brown/hasDelegate"/>
+    <vitro:prohibitedFromUpdateBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:range rdf:resource="http://vivoweb.org/ontology/core#FacultyMember"/>
+    <vitro:selectFromExistingAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</vitro:selectFromExistingAnnot>
+    <vitro:displayLimitAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#int">5</vitro:displayLimitAnnot>
+    <rdfs:domain rdf:resource="http://vivo.brown.edu/ontology/vivo-brown/Delegate"/>
+    <rdfs:label xml:lang="en-US">delegate for</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://vivo.brown.edu/ontology/vivo-brown/primaryOrgLabel">
+    <vitro:hiddenFromDisplayBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#curator"/>
+    <vitro:prohibitedFromUpdateBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#curator"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <vitro:hiddenFromPublishBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#curator"/>
+    <rdfs:label xml:lang="en-US">primary OU</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://vivo.brown.edu/ontology/vivo-brown/hasDelegate">
+    <vitro:inPropertyGroupAnnot rdf:resource="http://vivo.brown.edu/individual/vitroPropertyGroupidentifiers"/>
+    <vitro:displayLimitAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#int">5</vitro:displayLimitAnnot>
+    <vitro:selectFromExistingAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</vitro:selectFromExistingAnnot>
+    <vitro:hiddenFromDisplayBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#editor"/>
+    <rdfs:range rdf:resource="http://vivo.brown.edu/ontology/vivo-brown/Delegate"/>
+    <owl:inverseOf rdf:resource="http://vivo.brown.edu/ontology/vivo-brown/delegateFor"/>
+    <vitro:prohibitedFromUpdateBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#editor"/>
+    <rdfs:label xml:lang="en-US">has delegate</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://vivoweb.org/ontology/core#FacultyMember"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://vivo.brown.edu/ontology/vivo-brown/fundedResearch">
+    <vitro:hiddenFromDisplayBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <vitro:prohibitedFromUpdateBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <vitro:inPropertyGroupAnnot rdf:resource="http://vivo.brown.edu/individual/vitroPropertyGroupresearch"/>
+    <rdfs:domain rdf:resource="http://vivoweb.org/ontology/core#FacultyMember"/>
+    <vitro:displayRankAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#int">30</vitro:displayRankAnnot>
+    <rdfs:label xml:lang="en-US">funded research</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://vivo.brown.edu/ontology/vivo-brown/countryCode">
+    <rdfs:domain rdf:resource="http://vivo.brown.edu/ontology/vivo-brown/Country"/>
+    <rdfs:label xml:lang="en-US">country code</rdfs:label>
+    <vitro:publicDescriptionAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ISO 3166-1 alpha-3 country code.</vitro:publicDescriptionAnnot>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <j.0:IAO_0000112 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ISO 3166-1 alpha-3 country code.</j.0:IAO_0000112>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <vitro:inPropertyGroupAnnot rdf:resource="http://vivo.brown.edu/individual/vitroPropertyGroupidentifiers"/>
+    <vitro:hiddenFromDisplayBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#nobody"/>
+    <vitro:prohibitedFromUpdateBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#nobody"/>
+    <vitro:hiddenFromPublishBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#nobody"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://vivo.brown.edu/ontology/vivo-brown/fisUpdated">
+    <vitro:hiddenFromDisplayBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#curator"/>
+    <vitro:prohibitedFromUpdateBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#curator"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
+    <vitro:inPropertyGroupAnnot rdf:resource="http://vivo.brown.edu/individual/vitroPropertyGroupidentifiers"/>
+    <rdfs:label xml:lang="en-US">FIS updated date</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://vivo.brown.edu/ontology/vivo-brown/Place">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <vitro:inClassGroup rdf:resource="http://vivo.brown.edu/individual/vitroClassGrouplocations"/>
+    <rdfs:label xml:lang="en-US">Place</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://vivo.brown.edu/ontology/vivo-brown/ResearchArea">
+    <vitro:hiddenFromDisplayBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <vitro:prohibitedFromUpdateBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <vitro:inClassGroup rdf:resource="http://vivo.brown.edu/individual/vitroClassGroupresearchinterests"/>
+    <vitro:descriptionAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Subclass of skos:Concept.  At this point the distinction is for display purposes only.  </vitro:descriptionAnnot>
+    <vitro:hiddenFromPublishBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <rdfs:label xml:lang="en-US">Research Area</rdfs:label>
+    <vitro:shortDef rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Research topics</vitro:shortDef>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://vivo.brown.edu/ontology/vivo-brown/teacherFor">
+    <owl:inverseOf rdf:resource="http://vivo.brown.edu/ontology/vivo-brown/hasTeacher"/>
+    <vitro:selectFromExistingAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</vitro:selectFromExistingAnnot>
+    <rdfs:label xml:lang="en-US">courses</rdfs:label>
+    <vitro:inPropertyGroupAnnot rdf:resource="http://vivo.brown.edu/individual/vitroPropertyGroupteaching"/>
+    <rdfs:range rdf:resource="http://vivoweb.org/ontology/core#Course"/>
+    <vitro:displayRankAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</vitro:displayRankAnnot>
+    <vitro:prohibitedFromUpdateBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <rdfs:domain rdf:resource="http://xmlns.com/foaf/0.1/Agent"/>
+    <vitro:displayLimitAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#int">5</vitro:displayLimitAnnot>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <vitro:hiddenFromDisplayBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://vivo.brown.edu/ontology/vivo-brown/cvOf">
+    <vitro:hiddenFromDisplayBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <owl:inverseOf rdf:resource="http://vivo.brown.edu/ontology/vivo-brown/cv"/>
+    <vitro:prohibitedFromUpdateBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <vitro:selectFromExistingAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</vitro:selectFromExistingAnnot>
+    <vitro:displayLimitAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#int">5</vitro:displayLimitAnnot>
+    <rdfs:subPropertyOf rdf:resource="http://vivoweb.org/ontology/core#webpageOf"/>
+    <rdfs:label xml:lang="en-US">CV</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://vivo.brown.edu/ontology/vivo-brown/">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
+    <vitro:ontologyPrefixAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#string">blocal</vitro:ontologyPrefixAnnot>
+    <rdfs:label xml:lang="en-US">Brown Local</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://vivo.brown.edu/ontology/vivo-brown/profileUpdated">
+    <vitro:hiddenFromDisplayBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#editor"/>
+    <vitro:prohibitedFromUpdateBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#editor"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en-US">profile updated</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://vivo.brown.edu/ontology/vivo-brown/pubmedLastName">
+    <vitro:hiddenFromDisplayBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#dbAdmin"/>
+    <vitro:prohibitedFromUpdateBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#dbAdmin"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <vitro:hiddenFromPublishBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#dbAdmin"/>
+    <rdfs:label xml:lang="en-US">PubMed last name</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://vivo.brown.edu/ontology/vivo-brown/CV">
+    <vitro:hiddenFromDisplayBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <vitro:prohibitedFromUpdateBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://vivoweb.org/ontology/core#URLLink"/>
+    <vitro:displayLimitAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#int">-1</vitro:displayLimitAnnot>
+    <vitro:displayRankAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#int">-1</vitro:displayRankAnnot>
+    <rdfs:label xml:lang="en-US">CV</rdfs:label>
+    <vitro:shortDef rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PDF of CV</vitro:shortDef>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://vivo.brown.edu/ontology/vivo-brown/cv">
+    <owl:inverseOf rdf:resource="http://vivo.brown.edu/ontology/vivo-brown/cvOf"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <vitro:displayLimitAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#int">5</vitro:displayLimitAnnot>
+    <rdfs:subPropertyOf rdf:resource="http://vivoweb.org/ontology/core#webpage"/>
+    <rdfs:label xml:lang="en-US">CV</rdfs:label>
+  </rdf:Description>
+</rdf:RDF>

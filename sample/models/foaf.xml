@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?><rdf:RDF
+    xmlns:vitro="http://vitro.mannlib.cornell.edu/ns/vitro/0.7#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:bdisplay="http://vivo.brown.edu/ontology/display#"
+    xmlns:afn="http://jena.hpl.hp.com/ARQ/function#"
+    xmlns:bcite="http://vivo.brown.edu/ontology/citation#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:blocal="http://vivo.brown.edu/ontology/vivo-brown/"
+    xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+    xmlns:bprofile="http://vivo.brown.edu/ontology/profile#"
+    xmlns:vivo="http://vivoweb.org/ontology/core#"
+    xmlns:foaf="http://xmlns.com/foaf/0.1/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#" > 
+  <rdf:Description rdf:about="http://xmlns.com/foaf/0.1/firstName">
+    <rdfs:label xml:lang="en-US">first name</rdfs:label>
+    <vitro:descriptionAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://xmlns.com/foaf/spec/#term_firstName.  Note from foaf: "The lastName  property is provided (alongside firstName) as a mechanism to support legacy data that cannot be easily interpreted in terms of the (otherwise preferred) familyName  and givenName  properties. The concepts of 'first' and 'last' names do not work well across cultural and linguistic boundaries; however they are widely used in addressbooks and databases."</vitro:descriptionAnnot>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <vitro:hiddenFromDisplayBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <vitro:inPropertyGroupAnnot rdf:resource="http://vivo.brown.edu/individual/vitroPropertyGroupaddress"/>
+    <rdfs:domain rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    <vitro:displayRankAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#int">10</vitro:displayRankAnnot>
+    <vitro:prohibitedFromUpdateBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#editor"/>
+    <vitro:displayLimitAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</vitro:displayLimitAnnot>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <vitro:publicDescriptionAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The legal first name of a person as indicated in data loaded most likely from their institution.  Only 1 first name can be displayed for each individual.</vitro:publicDescriptionAnnot>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://xmlns.com/foaf/0.1/Person">
+    <vitro:displayRankAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#int">-1</vitro:displayRankAnnot>
+    <vitro:displayLimitAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#int">-1</vitro:displayLimitAnnot>
+    <vitro:hiddenFromDisplayBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <rdfs:label xml:lang="en-US">Person</rdfs:label>
+    <vitro:shortDef rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The most general classification of a person</vitro:shortDef>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <vitro:customDisplayViewAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#string">individual--foaf-person.ftl</vitro:customDisplayViewAnnot>
+    <vitro:prohibitedFromUpdateBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <vitro:inClassGroup rdf:resource="http://vivo.brown.edu/individual/vitroClassGrouppeople"/>
+    <rdfs:subClassOf rdf:resource="http://xmlns.com/foaf/0.1/Agent"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://xmlns.com/foaf/0.1/">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
+    <vitro:ontologyPrefixAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#string">foaf</vitro:ontologyPrefixAnnot>
+    <rdfs:label xml:lang="en-US">FOAF</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://xmlns.com/foaf/0.1/Organization">
+    <vitro:prohibitedFromUpdateBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <vitro:displayRankAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#int">-1</vitro:displayRankAnnot>
+    <rdfs:label xml:lang="en-US">Organization</rdfs:label>
+    <vitro:descriptionAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#string">This class will display all the instances in the subclasses below it, as well as any organizations that were added as part of this generic class because there wasn't a specific class available.</vitro:descriptionAnnot>
+    <vitro:customDisplayViewAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#string">individual--foaf-organization.ftl</vitro:customDisplayViewAnnot>
+    <vitro:exampleAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Only use if no specific subclasses of foaf:organization desribe the organization.</vitro:exampleAnnot>
+    <vitro:displayLimitAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#int">-1</vitro:displayLimitAnnot>
+    <vitro:shortDef rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A generic class encompassing several types of organizations.</vitro:shortDef>
+    <rdfs:subClassOf rdf:resource="http://xmlns.com/foaf/0.1/Agent"/>
+    <vitro:hiddenFromDisplayBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://xmlns.com/foaf/0.1/Agent">
+    <vitro:hiddenFromDisplayBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <vitro:prohibitedFromUpdateBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <vitro:descriptionAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#string">see: http://xmlns.com/foaf/spec/#term_Agent</vitro:descriptionAnnot>
+    <vitro:displayLimitAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#int">-1</vitro:displayLimitAnnot>
+    <vitro:displayRankAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#int">-1</vitro:displayRankAnnot>
+    <rdfs:label xml:lang="en-US">Agent</rdfs:label>
+    <vitro:shortDef rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Agents are things that do stuff</vitro:shortDef>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://xmlns.com/foaf/0.1/lastName">
+    <vitro:displayRankAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#int">30</vitro:displayRankAnnot>
+    <vitro:descriptionAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://xmlns.com/foaf/spec/#term_lastName. Note from foaf: "The lastName  property is provided (alongside firstName) as a mechanism to support legacy data that cannot be easily interpreted in terms of the (otherwise preferred) familyName  and givenName  properties. The concepts of 'first' and 'last' names do not work well across cultural and linguistic boundaries; however they are widely used in addressbooks and databases."</vitro:descriptionAnnot>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    <vitro:displayLimitAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</vitro:displayLimitAnnot>
+    <vitro:publicDescriptionAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The legal last name of a person as indicated in data loaded most likely from their institution. Only 1 last name can be displayed for each individual.</vitro:publicDescriptionAnnot>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <vitro:prohibitedFromUpdateBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#editor"/>
+    <vitro:hiddenFromDisplayBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <rdfs:label xml:lang="en-US">last name</rdfs:label>
+    <vitro:inPropertyGroupAnnot rdf:resource="http://vivo.brown.edu/individual/vitroPropertyGroupaddress"/>
+  </rdf:Description>
+</rdf:RDF>
