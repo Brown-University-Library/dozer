@@ -20,8 +20,11 @@ fisFaculty.register_endpoint(spq)
 
 @app.route('/rabdata/fisfeed/faculty/', methods=['GET'])
 def index():
+	# Working for single strings
+	# problems for dates, multival?
+	params = { k: [v] for k, v in request.args.items() }
 	try:
-		allFisFaculty = fisFaculty.search()
+		allFisFaculty = fisFaculty.search(params=params)
 	except:
 		return 404
 	return json.dumps([ fac.to_dict()
