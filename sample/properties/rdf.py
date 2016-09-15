@@ -1,4 +1,4 @@
-from dozer.statements import Predicate
+from dozer.graphschema import Predicate
 
 ns = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'
 

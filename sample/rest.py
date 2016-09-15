@@ -7,9 +7,9 @@ app = Flask(__name__)
 CORS(app)
 
 from context import dozer
-from dozer.sparqlinterface import SPARQLInterface
+from dozer.sparqler import Sparqler
 
-spq = SPARQLInterface(
+spq = Sparqler(
 		'http://localhost:8082/VIVO/query',
 		'http://localhost:8080/rab/api/sparqlUpdate',
 		'http')

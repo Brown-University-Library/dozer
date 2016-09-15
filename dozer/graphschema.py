@@ -1,7 +1,9 @@
-import os
-import uuid
 import datetime
 import urlparse
+
+#####################
+## Begin Predicate ##
+#####################
 
 def _validate_uri(value):
 	try:
@@ -49,6 +51,13 @@ class Predicate(object):
 	def validate(self, value):
 		return self.validator(value)
 
+###################
+## End Predicate ##
+###################
+
+#####################
+## Begin Attribute ##
+#####################
 
 def _validate_list(values):
 	if not isinstance(values, list):
@@ -75,8 +84,7 @@ class Attribute(object):
 		self.uri = predicate.uri
 		self.alias = alias
 		self.validators = [_validate_list]
-		if presets:
-			self.presets = presets
+		self.conformers = []
 		if required:
 			self.required = True
 			self.validators.append(_validate_required)
@@ -84,13 +92,40 @@ class Attribute(object):
 			self.unique = True
 			self.validators.append(_validate_unique)
 		if always:
+			assert isinstance(always, list)
 			self.always = always
+			self.conformers.append(self._conform_always)
 		if allowed:
+			assert isinstance(allowed, list)
 			self.allowed = allowed
+			self.conformers.append(self._conform_allowed)
+		if only:
+			assert isinstance(only, list)
+			self.only = only
+			self.conformers.append(self._conform_only)
 
 	def set_alias(self, alias):
 		self.alias = alias
 
+	def _conform_always(self, values):
+		return values + self.always
+
+	def _conform_allowed(self, values):
+		if values != []:
+			return [ v for v in values if v in self.allowed ]
+		else:
+			return values
+
+	def _conform_only(self, values):
+		return self.only
+
+###################
+## End Attribute ##
+###################
+
+##################
+## Begin Schema ##
+##################
 
 def rename_dictionary_keys(newKeyMap, dct):
 	return { newKeyMap[k]: v for k,v in dct.items() }
@@ -102,17 +137,6 @@ def add_missing_keys(keyList, dct):
 	out = dct.copy()
 	out.update({ k: list() for k in keyList if k not in dct })
 	return out
-
-def set_default_list_value(lst, val):
-	if not lst:
-		return [val]
-	else:
-		return lst 
-
-def noneify_empty_dictionary_lists(dct):
-	noned = { k:set_default_list_value(v, None)
-				for k,v in dct.items() }
-	return noned
 
 def attribute_builder(aliasDict):
 	for alias in aliasDict:
@@ -128,7 +152,7 @@ class Schema(object):
 		self.uris = { attr.uri: attr.alias for attr in attrs }
 		self.attr_validators = { attr.uri: attr.validators for attr in attrs }
 		self.data_validators = { attr.uri: attr.predicate.validator for attr in attrs }
-		self.presets = { attr.uri: attr.presets for attr in attrs if hasattr(attr,'presets') }
+		self.data_conformers = { attr.uri: attr.conformers for attr in attrs}				
 		self.required = [ attr.uri for attr in attrs if hasattr(attr,'required') ]
 		self.optional = [ attr.uri for attr in attrs if not hasattr(attr,'required') ]
 		self.datatypes = { attr.uri: attr.predicate.datatype for attr in attrs }
@@ -139,14 +163,23 @@ class Schema(object):
 	def alias_data(self, data):
 		return rename_dictionary_keys(self.uris, data)
 
-	def assign_preset_values(self, data):
-		data.update(self.presets)
-		return data
-
 	def validate_attributes(self, data):
 		out = dict()
 		for k, v in data.items():
 			validators = self.attr_validators[k]
+			filtered = v
+			for validator in validators:
+				try:
+					filtered = validator(filtered)
+				except ValueError as e:
+					raise Exception(e,k,v)
+			out[k] = filtered
+		return out
+
+	def conform_data(self, data):
+		out = dict()
+		for k, v in data.items():
+			validators = self.data_conformers[k]
 			filtered = v
 			for validator in validators:
 				try:
@@ -166,7 +199,7 @@ class Schema(object):
 				raise Exception(e,k,d)
 		return out
 
-	def validate_structure(self, data):
+	def conform_structure(self, data):
 		# Only include recognized attribute/values
 		data = filter_unrecognized_keys(self.uris.keys(), data)
 		# Ensure all attributes are present
@@ -185,3 +218,7 @@ class Schema(object):
 		params = self.validate_data(params)
 		params = noneify_empty_dictionary_lists(params)
 		return params
+
+################
+## End Schema ##
+################

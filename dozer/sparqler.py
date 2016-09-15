@@ -272,7 +272,7 @@ def set_difference(list1, list2):
 	out2 = s2 - s1
 	return (out1, out2)
 
-class SPARQLInterface(object):
+class Sparqler(object):
 	def __init__(self, query_endpoint, update_endpoint, sparql_api):
 		if sparql_api == 'rdflib':
 			self.endpoint = RdfLibSparqlApi(

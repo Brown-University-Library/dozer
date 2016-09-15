@@ -1,4 +1,5 @@
-from dozer.statements import Collection, Schema, Attribute
+from dozer.graphschema import Schema, Attribute
+from dozer.graphmap import Collection
 from properties import foaf, vivo, blocal, rdfs, rdf
 
 #rename presets as only; add parameter for allowed
