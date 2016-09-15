@@ -170,6 +170,7 @@ class Resource(object):
 			data = self.schema.validate_query(data)
 		self.data.update(data)
 
+
 def rename_dictionary_keys(newKeyMap, dct):
 	return { newKeyMap[k]: v for k,v in dct.items() }
 
@@ -206,7 +207,7 @@ class Schema(object):
 		self.uris = { attr.uri: attr.alias for attr in attrs }
 		self.attr_validators = { attr.uri: attr.validators for attr in attrs }
 		self.data_validators = { attr.uri: attr.predicate.validator for attr in attrs }
-		self.presets = { attr.uri: attr.presets for attr in attrs if hasattr(attr,'presets') }
+		self.data_conformers = { attr.uri: attr.conformers for attr in attrs}				
 		self.required = [ attr.uri for attr in attrs if hasattr(attr,'required') ]
 		self.optional = [ attr.uri for attr in attrs if not hasattr(attr,'required') ]
 		self.datatypes = { attr.uri: attr.predicate.datatype for attr in attrs }
@@ -217,14 +218,23 @@ class Schema(object):
 	def alias_data(self, data):
 		return rename_dictionary_keys(self.uris, data)
 
-	def assign_preset_values(self, data):
-		data.update(self.presets)
-		return data
-
 	def validate_attributes(self, data):
 		out = dict()
 		for k, v in data.items():
 			validators = self.attr_validators[k]
+			filtered = v
+			for validator in validators:
+				try:
+					filtered = validator(filtered)
+				except ValueError as e:
+					raise Exception(e,k,v)
+			out[k] = filtered
+		return out
+
+	def conform_data(self, data):
+		out = dict()
+		for k, v in data.items():
+			validators = self.data_conformers[k]
 			filtered = v
 			for validator in validators:
 				try:
@@ -264,6 +274,7 @@ class Schema(object):
 		params = noneify_empty_dictionary_lists(params)
 		return params
 
+
 def _validate_list(values):
 	if not isinstance(values, list):
 		raise TypeError('Data must be in list format')
@@ -283,19 +294,43 @@ class Attribute(object):
 	# Add support for "write","edit"; etc
 	def __init__(self, predicate, alias=None,
 					required=False, optional=False,
-					unique=False, presets=None):
+					unique=False, allowed=None,
+					always=None, only=None):
 		self.predicate = predicate
 		self.uri = predicate.uri
 		self.alias = alias
 		self.validators = [_validate_list]
-		if presets:
-			self.presets = presets
+		self.conformers = []
 		if required:
 			self.required = True
 			self.validators.append(_validate_required)
 		if unique:
 			self.unique = True
 			self.validators.append(_validate_unique)
+		if always:
+			assert isinstance(always, list)
+			self.always = always
+			self.conformers.append(self._conform_always)
+		if allowed:
+			assert isinstance(allowed, list)
+			self.allowed = allowed
+			self.conformers.append(self._conform_allowed)
+		if only:
+			assert isinstance(only, list)
+			self.only = only
+			self.conformers.append(self._conform_only)
 
 	def set_alias(self, alias):
 		self.alias = alias
+
+	def _conform_always(self, values):
+		return values + self.always
+
+	def _conform_allowed(self, values):
+		if values != []:
+			return [ v for v in values if v in self.allowed ]
+		else:
+			return values
+
+	def _conform_only(self, values):
+		return self.only

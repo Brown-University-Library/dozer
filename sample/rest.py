@@ -14,8 +14,8 @@ spq = SPARQLInterface(
 		'http://localhost:8080/rab/api/sparqlUpdate',
 		'http')
 
+## API for FIS faculty data
 from resources.fisFaculty import fisFaculty
-
 fisFaculty.register_endpoint(spq)
 
 @app.route('/rabdata/fisfeed/faculty/', methods=['GET'])
@@ -30,6 +30,14 @@ def index():
 	return json.dumps([ fac.to_dict()
 							for fac in allFisFaculty])
 
+@app.route('/rabdata/fisfeed/faculty/<rabid>', methods=['GET'])
+def retrieve(rabid):
+	try:
+		fisfac = fisFaculty.find(rabid=rabid)
+	except:
+		return 404
+	return json.dumps(fisfac.to_dict())
+
 
 @app.route('/rabdata/fisfeed/faculty/', methods=['POST'])
 def create():
@@ -39,14 +47,6 @@ def create():
 		return 400
 	return response(code=201, body=new)
 
-@app.route('/rabdata/fisfeed/faculty/<rabid>', methods=['GET'])
-def retrieve(rabid):
-	try:
-		fisfac = fisFaculty.find(rabid=rabid)
-	except:
-		return 404
-	data = json.dumps(fisfac)
-	return response(code=200, body=data)
 
 @app.route('/rabdata/fisfeed/faculty/<rabid>', methods=['PUT'])
 def replace(rabid):

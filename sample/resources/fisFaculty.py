@@ -4,12 +4,11 @@ from properties import foaf, vivo, blocal, rdfs, rdf
 #rename presets as only; add parameter for allowed
 fisFacultySchema = Schema({
 	'class'		: 	Attribute(rdf.rdfType, required=True,
-						presets=[
-							'http://vivoweb.org/ontology/core#FacultyMember',
-							'http://vivo.brown.edu/ontology/vivo-brown/BrownThing'
-							]),
+						always=[ vivo.FacultyMember ],
+						allowed=[ vivo.FacultyMember, blocal.BrownThing ]),
 	'label'		:	Attribute(rdfs.label, required=True, unique=True),
 	'first'		:	Attribute(foaf.firstName, required=True, unique=True),
+	'middle'	:	Attribute(vivo.middleName, optional=True, unique=True),
 	'last'		:	Attribute(foaf.lastName, required=True, unique=True),
 	'title'		:	Attribute(vivo.preferredTitle, required=True, unique=True),
 	'email'		:	Attribute(vivo.primaryEmail, required=True, unique=True),
