@@ -57,6 +57,7 @@ class SPARQLRequest(object):
 			'datetime': _XSD_encode_dateTime,
 			'date': _XSD_encode_dateTime
 		}
+		self.resource = resource.uri
 		self.triples = resource.to_triples()
 		self.named_graph = _XSD_encode_uri(
 								resource.collection.named_graph)
@@ -71,6 +72,9 @@ class SPARQLRequest(object):
 	def write_construct_triples(self, predicateFilter):
 		triples = [ t for t in self.triples
 					if t[1] in predicateFilter ]
+		if self.resource:
+			var_all = [ (t[0], t[1], None) for t in triples if t[2] ]
+			triples += var_all
 		triples = [ update_triple(t, 2, self.XSD_mappings[t[1]])
 						if t[2] else t for t in triples ]
 		triples = [ update_triple(t, 0, _XSD_encode_uri)

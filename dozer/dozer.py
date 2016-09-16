@@ -17,7 +17,7 @@ spq = Sparqler(
 from sample.resources.fisFaculty import fisFaculty
 fisFaculty.register_endpoint(spq)
 
-@app.route('/rabdata/fisfeed/faculty/', methods=['GET'])
+@app.route('/rabdata/fisfaculty/', methods=['GET'])
 def index():
 	# Working for single strings
 	# problems for dates, multival?
@@ -29,7 +29,7 @@ def index():
 	return json.dumps([ fac.to_dict()
 							for fac in allFisFaculty])
 
-@app.route('/rabdata/fisfeed/faculty/<rabid>', methods=['GET'])
+@app.route('/rabdata/fisfaculty/<rabid>', methods=['GET'])
 def retrieve(rabid):
 	try:
 		fisfac = fisFaculty.find(rabid=rabid)
@@ -38,7 +38,7 @@ def retrieve(rabid):
 	return json.dumps(fisfac.to_dict())
 
 
-@app.route('/rabdata/fisfeed/faculty/', methods=['POST'])
+@app.route('/rabdata/fisfaculty/', methods=['POST'])
 def create():
 	try:
 		new = fisFaculty.create(json.loads(resp.body))
@@ -47,7 +47,7 @@ def create():
 	return response(code=201, body=new)
 
 
-@app.route('/rabdata/fisfeed/faculty/<rabid>', methods=['PUT'])
+@app.route('/rabdata/fisfaculty/<rabid>', methods=['PUT'])
 def replace(rabid):
 	try:
 		fisfac = fisFaculty.find(rabid=rabid)
@@ -63,7 +63,7 @@ def replace(rabid):
 		return 409
 
 
-@app.route('/rabdata/fisfeed/faculty/<rabid>', methods=['DELETE'])
+@app.route('/rabdata/fisfaculty/<rabid>', methods=['DELETE'])
 def destroy(rabid):
 	try:
 		fisfac = fisFaculty.find(rabid=rabid)

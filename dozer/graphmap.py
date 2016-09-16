@@ -42,9 +42,9 @@ class Collection(object):
 		if aliased:
 			params = self.schema.unalias_data(params)
 		query = Resource(collection=self, query=params)
-		resp = self.endpoint.construct(query)
+		resp = self.endpoint.construct(query, optional=False)
 		resList = [ Resource(uri=data.keys()[0],
-					collection=self, stored=data.values()[0])
+					collection=self, searched=data.values()[0])
 					for data in resp ]
 		return resList
 
@@ -53,7 +53,7 @@ class Collection(object):
 		query = Resource(uri=uri, collection=self, query={})
 		resp = self.endpoint.construct(query)
 		resList = [ Resource(uri=data.keys()[0],
-					collection=self, stored=data.values()[0])
+					collection=self, found=data.values()[0])
 					for data in resp ]
 		# Validate len(resList) == 1 ?
 		return resList[0]
@@ -86,16 +86,18 @@ class Collection(object):
 
 class Resource(object):
 	def __init__(self, collection, uri=None,
-					incoming=None, stored=None,
-					query=None):
+					incoming=None, query=None,
+					searched=None, found=None):
 		self.data = dict()
 		self.collection = collection
 		self.schema = collection.schema
 		self.uri = uri
 		if isinstance(incoming, dict):
-			self.update(incoming, validate_full=True)
-		elif isinstance(stored, dict):
-			self.update(stored, validate_full=False)
+			self.update(incoming, validate_raw=True)
+		elif isinstance(searched, dict):
+			self.update(searched)
+		elif isinstance(found, dict):
+			self.update(found, validate_stored=True)
 		elif isinstance(query, dict):
 			self.update(query, validate_query=True)
 
@@ -111,16 +113,19 @@ class Resource(object):
 		out = { self.uri: data }
 		return out
 
-	def update(self, data, validate_full=False,
-				validate_partial=False,
+	def update(self, data,
+				validate_raw=False,
+				validate_stored=False,
 				validate_query=False):
-		if validate_full or validate_query:
+		if validate_raw:
 			data = self.schema.conform_structure(data)
 			data = self.schema.conform_data(data)
-		if validate_full:
 			data = self.schema.validate_attributes(data)
-		if validate_full or validate_partial or validate_query:
 			data = self.schema.validate_data(data)
+		if validate_stored:
+			data = self.schema.conform_data(data)
 		if validate_query:
+			data = self.schema.conform_structure(data)
+			data = self.schema.conform_data(data)
 			data = { k: v if v else [None] for k,v in data.items() }
 		self.data.update(data)

@@ -107,8 +107,10 @@ class Attribute(object):
 	def set_alias(self, alias):
 		self.alias = alias
 
+	# _validate_list up here? _conform_list?
 	def _conform_always(self, values):
-		return values + self.always
+		if isinstance(values, list):
+			return list(set(values + self.always))
 
 	def _conform_allowed(self, values):
 		if values != []:
