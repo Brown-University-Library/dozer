@@ -191,7 +191,7 @@ class HttpSparqlApi(object):
 		resp = requests.get(self.query_endpoint,
 								params=payload, headers=header)
 		if resp.status_code == 200:
-			return resp.status_code
+			return resp
 		else:
 			raise Exception("Failed get! {0}".format(resp.text))
 

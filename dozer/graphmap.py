@@ -69,7 +69,10 @@ class Collection(object):
 		pending = Resource(
 					uri=existing.uri, collection=self, incoming=data)
 		resp = self.endpoint.update(insert=pending, delete=existing)
-		return resp
+		if resp == 200:
+			return pending
+		else:
+			return resp
 
 	def modify(self, existing, data, aliased=True):
 		uri, data = data.items()[0]
@@ -81,11 +84,17 @@ class Collection(object):
 							collection=self, stored=existing_data)
 		pending.update(data, validate_partial=True)
 		resp = self.endpoint.update(insert=pending, delete=existing)
-		return resp
+		if resp == 200:
+			return pending
+		else:
+			return resp
 
 	def remove(self, existing):
 		resp = self.endpoint.update(delete=existing)
-		return resp
+		if resp == 200:
+			return 204
+		else:
+			return resp
 
 class Resource(object):
 	def __init__(self, collection, uri=None,
@@ -106,7 +115,7 @@ class Resource(object):
 
 	@property
 	def etag(self):
-		return hash(frozenset(sorted(self.to_triples())))
+		return str(hash(frozenset(sorted(self.to_triples()))))
 
 	def to_triples(self):
 		return [(self.uri, k, val) for k,v in self.data.items()
