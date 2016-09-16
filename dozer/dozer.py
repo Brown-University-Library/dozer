@@ -6,8 +6,7 @@ import json
 app = Flask(__name__)
 CORS(app)
 
-from context import dozer
-from dozer.sparqler import Sparqler
+from sparqler import Sparqler
 
 spq = Sparqler(
 		'http://localhost:8082/VIVO/query',
@@ -15,7 +14,7 @@ spq = Sparqler(
 		'http')
 
 ## API for FIS faculty data
-from resources.fisFaculty import fisFaculty
+from sample.resources.fisFaculty import fisFaculty
 fisFaculty.register_endpoint(spq)
 
 @app.route('/rabdata/fisfeed/faculty/', methods=['GET'])

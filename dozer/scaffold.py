@@ -80,7 +80,7 @@ def main(modelDir, modelFile, propDir):
 	## end Vars for pretty printing
 
 	## Building the file string
-	out = "from dozer.statements import Predicate\n\n"
+	out = "from statements import Predicate\n\n"
 	out += "\n### Model Namespace ###\n\n"
 	out += "ns =  '{0}'\n".format(namespace)
 	out += "\n### Class Declarations ###\n\n"

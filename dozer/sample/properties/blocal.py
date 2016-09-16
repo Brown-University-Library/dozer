@@ -1,4 +1,4 @@
-from dozer.graphschema import Predicate
+from graphschema import Predicate
 
 
 ### Model Namespace ###

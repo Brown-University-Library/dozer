@@ -1,6 +1,6 @@
-from dozer.graphschema import Schema, Attribute
-from dozer.graphmap import Collection
-from properties import foaf, vivo, blocal, rdfs, rdf
+from graphschema import Schema, Attribute
+from graphmap import Collection
+from sample.properties import foaf, vivo, blocal, rdfs, rdf
 
 #rename presets as only; add parameter for allowed
 fisFacultySchema = Schema({
