@@ -24,13 +24,16 @@ class Collection(object):
 	def namespace_uri(self, suffix):
 		return os.path.join(self.namespace, suffix)
 
-	def create(self, data=dict(), aliased=False):
+	def create(self, data=dict(), aliased=True):
 		uri = self.mint_new_uri()
 		if aliased:
 			data = self.schema.unalias_data(data)
 		res = Resource(collection=self, uri=uri, incoming=data)
 		resp = self.endpoint.update(insert=res)
-		return resp
+		if resp == 200:
+			return res
+		else:
+			return resp
 
 	def search(self, params=dict(), aliased=True):
 		## IMPORTANT

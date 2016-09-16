@@ -43,11 +43,14 @@ def retrieve(rabid):
 @app.route('/rabdata/fisfaculty/', methods=['POST'])
 def create():
 	try:
-		new = fisFaculty.create(json.loads(resp.body))
+		fisfac = fisFaculty.create(
+					data=request.get_json())
+		resp = make_response(
+					json.dumps(fisfac.to_dict()))
+		resp.headers['ETag'] = fisfac.etag
+		return resp
 	except:
-		return 400
-	return response(code=201, body=new)
-
+		return 'bad post '+str(resp.status_code)
 
 @app.route('/rabdata/fisfaculty/<rabid>', methods=['PUT'])
 def replace(rabid):
@@ -55,7 +58,7 @@ def replace(rabid):
 		fisfac = fisFaculty.find(rabid=rabid)
 	except:
 		return 404
-	if fisfac.ETag == req.headers["If-Match"]:
+	if fisfac.etag == req.headers["If-Match"]:
 		try:
 			updated = fisFaculty.overwrite(fisfac, json.loads(req.body))
 		except:
@@ -71,14 +74,14 @@ def destroy(rabid):
 		fisfac = fisFaculty.find(rabid=rabid)
 	except:
 		return 404
-	if fisfac.ETag == req.headers["If-Match"]:
+	if fisfac.etag == int(request.headers.get("If-Match")):
 		try:
-			fisfac.remove()
+			fisFaculty.remove(fisfac)
 		except:
-			return 403
-		return 204
+			return 'failed delete 403'
+		return 'successful delete 204'
 	else:
-		return 409
+		return 'bad delete 409'
 
 if __name__ == '__main__':
 	app.run(host='0.0.0.0', port=8000, debug=True)

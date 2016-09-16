@@ -191,7 +191,7 @@ class HttpSparqlApi(object):
 		resp = requests.get(self.query_endpoint,
 								params=payload, headers=header)
 		if resp.status_code == 200:
-			return resp
+			return resp.status_code
 		else:
 			raise Exception("Failed get! {0}".format(resp.text))
 
@@ -207,7 +207,7 @@ class HttpSparqlApi(object):
 		}
 		resp = requests.post(self.update_endpoint,
 								data=payload,headers=header)
-		return resp
+		return resp.status_code
 
 	def convert_results_to_triples(self, requestsResp, datatypeMap):
 		triples = parseJSONString(requestsResp.text)
