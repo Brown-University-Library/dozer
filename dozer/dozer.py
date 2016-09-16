@@ -33,10 +33,12 @@ def index():
 def retrieve(rabid):
 	try:
 		fisfac = fisFaculty.find(rabid=rabid)
+		resp = make_response(
+					json.dumps(fisfac.to_dict()))
+		resp.headers['ETag'] = fisfac.etag
+		return resp
 	except:
 		return 404
-	return json.dumps(fisfac.to_dict())
-
 
 @app.route('/rabdata/fisfaculty/', methods=['POST'])
 def create():

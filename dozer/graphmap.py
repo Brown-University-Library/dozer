@@ -101,6 +101,10 @@ class Resource(object):
 		elif isinstance(query, dict):
 			self.update(query, validate_query=True)
 
+	@property
+	def etag(self):
+		return hash(frozenset(sorted(self.to_triples())))
+
 	def to_triples(self):
 		return [(self.uri, k, val) for k,v in self.data.items()
 					for val in v ]
