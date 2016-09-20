@@ -75,12 +75,18 @@ def main(modelDir, modelFile, propDir):
 	## Vars for pretty printing
 	outfile = modelFile[:-3] + 'py'
 	prop_uris = [p[0] for p in ont_properties]
-	pp_class = len(max(ont_classes, key=len)) - len(namespace) + 2
-	pp_prop = len(max(prop_uris, key=len)) - len(namespace) + 2
+	if len(ont_classes) != 0:
+		pp_class = len(max(ont_classes, key=len)) - len(namespace) + 2
+	else:
+		pp_class = 0
+	if len(ont_properties) != 0:
+		pp_prop = len(max(prop_uris, key=len)) - len(namespace) + 2
+	else:
+		pp_prop = 0
 	## end Vars for pretty printing
 
 	## Building the file string
-	out = "from statements import Predicate\n\n"
+	out = "from graphschema import Predicate\n\n"
 	out += "\n### Model Namespace ###\n\n"
 	out += "ns =  '{0}'\n".format(namespace)
 	out += "\n### Class Declarations ###\n\n"

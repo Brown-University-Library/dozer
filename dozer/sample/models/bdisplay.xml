@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?><rdf:RDF
+    xmlns:vitro="http://vitro.mannlib.cornell.edu/ns/vitro/0.7#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:bdisplay="http://vivo.brown.edu/ontology/display#"
+    xmlns:afn="http://jena.hpl.hp.com/ARQ/function#"
+    xmlns:bcite="http://vivo.brown.edu/ontology/citation#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:blocal="http://vivo.brown.edu/ontology/vivo-brown/"
+    xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+    xmlns:bprofile="http://vivo.brown.edu/ontology/profile#"
+    xmlns:vivo="http://vivoweb.org/ontology/core#"
+    xmlns:foaf="http://xmlns.com/foaf/0.1/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#" > 
+  <rdf:Description rdf:about="http://vivo.brown.edu/ontology/display#CentersProgramsAndInstitutes">
+    <vitro:hiddenFromDisplayBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <vitro:prohibitedFromUpdateBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://vivo.brown.edu/ontology/display#OU"/>
+    <vitro:inClassGroup rdf:resource="http://vivo.brown.edu/individual/vitroClassGroupBrownOUs"/>
+    <vitro:displayRankAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</vitro:displayRankAnnot>
+    <rdfs:label xml:lang="en-US">Centers, Programs, and Institutes</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://vivo.brown.edu/ontology/display#BiologyAndMedicine">
+    <vitro:hiddenFromDisplayBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#dbAdmin"/>
+    <vitro:prohibitedFromUpdateBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#dbAdmin"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://vivo.brown.edu/ontology/display#OU"/>
+    <vitro:inClassGroup rdf:resource="http://vivo.brown.edu/individual/vitroClassGroupBrownOUs"/>
+    <vitro:displayRankAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</vitro:displayRankAnnot>
+    <rdfs:label xml:lang="en-US">Biology and Medicine</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://vivo.brown.edu/ontology/display#SchoolOfPublicHealth">
+    <vitro:hiddenFromDisplayBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <vitro:prohibitedFromUpdateBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://vivo.brown.edu/ontology/display#OU"/>
+    <vitro:inClassGroup rdf:resource="http://vivo.brown.edu/individual/vitroClassGroupBrownOUs"/>
+    <rdfs:label xml:lang="en-US">School of Public Health</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://vivo.brown.edu/ontology/display#AlpertSchoolOfMedicine">
+    <vitro:hiddenFromDisplayBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#dbAdmin"/>
+    <vitro:prohibitedFromUpdateBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://vivo.brown.edu/ontology/display#OU"/>
+    <vitro:inClassGroup rdf:resource="http://vivo.brown.edu/individual/vitroClassGroupBrownOUs"/>
+    <rdfs:label xml:lang="en-US">Alpert School of Medicine</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://vivo.brown.edu/ontology/display#OU">
+    <vitro:hiddenFromDisplayBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <vitro:prohibitedFromUpdateBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <vitro:inClassGroup rdf:resource="http://vivo.brown.edu/individual/vitroClassGroupBrownOUs"/>
+    <vitro:descriptionAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Org unit at Brown.</vitro:descriptionAnnot>
+    <vitro:displayLimitAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#int">-1</vitro:displayLimitAnnot>
+    <vitro:displayRankAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#int">-1</vitro:displayRankAnnot>
+    <rdfs:label xml:lang="en-US">Organizational Unit</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://vivo.brown.edu/ontology/display#SchoolOfEngineering">
+    <vitro:hiddenFromDisplayBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <vitro:prohibitedFromUpdateBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://vivo.brown.edu/ontology/display#OU"/>
+    <vitro:inClassGroup rdf:resource="http://vivo.brown.edu/individual/vitroClassGroupBrownOUs"/>
+    <rdfs:label xml:lang="en-US">School of Engineering</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://vivo.brown.edu/ontology/display">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
+    <vitro:ontologyPrefixAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bdisplay</vitro:ontologyPrefixAnnot>
+    <rdfs:label xml:lang="en-US">Brown Display</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://vivo.brown.edu/ontology/display#Departments">
+    <vitro:hiddenFromDisplayBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <vitro:prohibitedFromUpdateBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://vivo.brown.edu/ontology/display#OU"/>
+    <vitro:inClassGroup rdf:resource="http://vivo.brown.edu/individual/vitroClassGroupBrownOUs"/>
+    <vitro:displayRankAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</vitro:displayRankAnnot>
+    <rdfs:label xml:lang="en-US">Academic Departments</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://vivo.brown.edu/ontology/display#Hidden">
+    <vitro:hiddenFromDisplayBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#dbAdmin"/>
+    <vitro:prohibitedFromUpdateBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#dbAdmin"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <vitro:displayLimitAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#int">-1</vitro:displayLimitAnnot>
+    <vitro:hiddenFromPublishBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#dbAdmin"/>
+    <vitro:displayRankAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#int">-1</vitro:displayRankAnnot>
+    <rdfs:label xml:lang="en-US">hidden</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://vivo.brown.edu/ontology/display#Schools">
+    <vitro:hiddenFromDisplayBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <vitro:prohibitedFromUpdateBelowRoleLevelAnnot rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/role#public"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://vivo.brown.edu/ontology/display#OU"/>
+    <vitro:inClassGroup rdf:resource="http://vivo.brown.edu/individual/vitroClassGroupBrownOUs"/>
+    <vitro:displayRankAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#int">4</vitro:displayRankAnnot>
+    <rdfs:label xml:lang="en-US">Schools</rdfs:label>
+  </rdf:Description>
+</rdf:RDF>
