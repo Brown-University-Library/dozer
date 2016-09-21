@@ -129,13 +129,13 @@ class Attribute(object):
 ## Begin Schema ##
 ##################
 
-def rename_dictionary_keys(newKeyMap, dct):
+def rename_dictionary_keys(dct, newKeyMap):
 	return { newKeyMap[k]: v for k,v in dct.items() }
 
-def filter_unrecognized_keys(keyList, dct):
+def filter_unrecognized_keys(dct, keyList):
 	return { k: v for k,v in dct.items() if k in keyList }
 
-def add_missing_keys(keyList, dct):
+def add_missing_keys(dct, keyList):
 	out = dct.copy()
 	out.update({ k: list() for k in keyList if k not in dct })
 	return out
@@ -160,15 +160,22 @@ class Schema(object):
 		self.datatypes = { attr.uri: attr.domain.datatype for attr in attrs }
 
 	def unalias_data(self, data):
-		return rename_dictionary_keys(self.aliases, data)
+		return rename_dictionary_keys(data, self.aliases)
 
 	def alias_data(self, data):
-		return rename_dictionary_keys(self.uris, data)
+		return rename_dictionary_keys(data, self.uris)
 
-	def validate_attributes(self, data):
+	def conform_structure(self, data):
+		# Only include recognized attribute/values
+		data = filter_unrecognized_keys(data, self.uris.keys())
+		# Ensure all attributes are present
+		data = add_missing_keys(data, self.uris.keys())
+		return data
+
+	def conform_data(self, data):
 		out = dict()
 		for k, v in data.items():
-			validators = self.attr_validators[k]
+			validators = self.data_conformers[k]
 			filtered = v
 			for validator in validators:
 				try:
@@ -178,10 +185,10 @@ class Schema(object):
 			out[k] = filtered
 		return out
 
-	def conform_data(self, data):
+	def validate_attributes(self, data):
 		out = dict()
 		for k, v in data.items():
-			validators = self.data_conformers[k]
+			validators = self.attr_validators[k]
 			filtered = v
 			for validator in validators:
 				try:
@@ -200,26 +207,6 @@ class Schema(object):
 			except ValueError as e:
 				raise Exception(e,k,d)
 		return out
-
-	def conform_structure(self, data):
-		# Only include recognized attribute/values
-		data = filter_unrecognized_keys(self.uris.keys(), data)
-		# Ensure all attributes are present
-		data = add_missing_keys(self.uris.keys(), data)
-		return data
-
-	def validate_resource(self, data):
-		data = self.assign_preset_values(data)
-		data = self.validate_attributes(data)
-		data = self.validate_data(data)
-		return data
-
-	def validate_query(self, params):
-		# Need to validate "list" type?
-		params = self.assign_preset_values(params)
-		params = self.validate_data(params)
-		params = noneify_empty_dictionary_lists(params)
-		return params
 
 ################
 ## End Schema ##

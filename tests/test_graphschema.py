@@ -4,9 +4,6 @@ import context
 from dozer.graphschema import Domain, _validate_uri, \
 	_validate_int, _validate_datetime, _validate_string
 
-from dozer.graphschema import Attribute, _validate_required, \
-	_validate_unique
-
 class TestDomain(unittest.TestCase):
 
 	def test_validate_uri(self):
@@ -64,6 +61,9 @@ class TestDomain(unittest.TestCase):
 		# Bad datatype
 		with self.assertRaises(ValueError):
 			unit = Domain('http://example', 'spam')
+
+from dozer.graphschema import Attribute, _validate_required, \
+	_validate_unique
 
 class TestAttribute(unittest.TestCase):
 
@@ -164,6 +164,46 @@ class TestAttribute(unittest.TestCase):
 			self.assertIn(val, conformed_2)
 		for val in test_2:
 			self.assertNotIn(val, conformed_2)
+
+from dozer.graphschema import Schema, rename_dictionary_keys, \
+	filter_unrecognized_keys, add_missing_keys
+
+class TestSchema(unittest.TestCase):
+
+	def test_Schema_construction(self):
+		pass
+
+	def test_rename_dictionary_keys(self):
+		current = { 'abc': 'mno', 'def': 'xyz' }
+		change_to = { 'abc': 123, 'def': 456 }
+		renamed = rename_dictionary_keys(current, change_to)
+		self.assertNotIn('abc', renamed)
+		self.assertNotIn('def', renamed)
+		self.assertIn(123, renamed)
+		self.assertIn(456, renamed)
+		self.assertEqual(renamed[123], 'mno')
+		self.assertEqual(renamed[456], 'xyz')
+
+	def test_filter_unrecognized_keys(self):
+		data = { 'abc': 123, 'def': 456, 'bad': 'key' }
+		recognized_keys = [ 'abc', 'def' ]
+		filtered = filter_unrecognized_keys(data, recognized_keys)
+		self.assertIn('abc', filtered)
+		self.assertIn('def', filtered)
+		self.assertNotIn('bad', filtered)
+		self.assertNotIn('key', filtered.values())
+
+	def test_add_missing_keys(self):
+		data = { 'abc': 123, 'def': 456 }
+		missing = [ 'needed', 'omitted', 'required' ]
+		filled_in = add_missing_keys(data, missing)
+		self.assertIn('abc', filled_in)
+		self.assertIn('def', filled_in)
+		self.assertIn('needed', filled_in)
+		self.assertEqual(filled_in['omitted'], [])
+		self.assertEqual(
+			len(filled_in.keys()),
+				len(data.keys()) + len(missing))
 
 if __name__ == "__main__":
 	unittest.main()
