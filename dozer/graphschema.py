@@ -113,14 +113,10 @@ class Attribute(object):
 
 	# _validate_list up here? _conform_list?
 	def _conform_always(self, values):
-		if isinstance(values, list):
-			return list(set(values + self.always))
+		return list(set(self.always) | set(values))
 
 	def _conform_allowed(self, values):
-		if values != []:
-			return [ v for v in values if v in self.allowed ]
-		else:
-			return values
+		return list(set(self.allowed) & set(values))
 
 	def _conform_only(self, values):
 		return self.only
