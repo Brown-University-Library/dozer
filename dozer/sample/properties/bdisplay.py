@@ -1,4 +1,4 @@
-from graphschema import Predicate
+from graphschema import Domain
 
 
 ### Model Namespace ###

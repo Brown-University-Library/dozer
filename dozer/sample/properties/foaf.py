@@ -1,4 +1,4 @@
-from graphschema import Predicate
+from graphschema import Domain
 
 
 ### Model Namespace ###
@@ -13,5 +13,5 @@ Agent         =  ns + 'Agent'
 
 ### Property Declarations ###
 
-firstName  =  Predicate(ns + 'firstName',  'string')
-lastName   =  Predicate(ns + 'lastName',   'string')
+firstName  =  Domain(ns + 'firstName',  'string')
+lastName   =  Domain(ns + 'lastName',   'string')

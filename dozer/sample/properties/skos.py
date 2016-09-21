@@ -1,4 +1,4 @@
-from graphschema import Predicate
+from graphschema import Domain
 
 
 ### Model Namespace ###
@@ -11,4 +11,4 @@ Concept  =  ns + 'Concept'
 
 ### Property Declarations ###
 
-exactMatch  =  Predicate(ns + 'exactMatch',  'uri')
+exactMatch  =  Domain(ns + 'exactMatch',  'uri')

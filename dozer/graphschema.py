@@ -2,40 +2,42 @@ import datetime
 import urlparse
 
 #####################
-## Begin Predicate ##
+## Begin Domain #####
 #####################
 
 def _validate_uri(value):
 	try:
-		urlparse.urlparse(value)
+		parsed = urlparse.urlparse(value)
+		assert parsed.scheme
+		assert parsed.netloc
 	except:
-		raise ValueError("Bad URI: ", value)
+		raise ValueError("Bad URI: " + value)
 	return value
 
 def _validate_int(value):
 	if isinstance(value, int):
 		return value
 	else:
-		raise ValueError("Bad int: ",value)
+		raise ValueError("Bad int: " + value)
 
 def _validate_datetime(value):
 	try:
-		datetime.datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%fZ')
+		datetime.datetime.strptime(value, '%Y-%m-%dT%H:%M:%S')
 	except:	
-		raise ValueError("Bad date: ", value)
+		raise ValueError("Bad date: " + value)
 	return value
 
 def _validate_string(value):
 	try:
 		value.decode('UTF-8')
 	except:
-		raise UnicodeError("Bad unicode: ", value)
+		raise UnicodeError("Bad unicode: " + value)
 	return value
 
-class Predicate(object):
+class Domain(object):
 
 	def __init__(self, uri, datatype):
-		self.uri = uri
+		self.uri = _validate_uri(uri)
 		self.datatype = datatype
 		if datatype == 'uri' or datatype == 'anyURI':
 			self.validator = _validate_uri
@@ -47,12 +49,14 @@ class Predicate(object):
 			self.validator = _validate_string
 		elif datatype == 'int':
 			self.validator = _validate_int
+		else:
+			raise ValueError("Unknown datatype: " + datatype)
 
 	def validate(self, value):
 		return self.validator(value)
 
 ###################
-## End Predicate ##
+## End Domain #####
 ###################
 
 #####################
@@ -76,12 +80,12 @@ def _validate_unique(values):
 
 class Attribute(object):
 	# Add support for "write","edit"; etc
-	def __init__(self, predicate, alias=None,
+	def __init__(self, domain, alias=None,
 					required=False, optional=False,
 					unique=False, allowed=None,
 					always=None, only=None):
-		self.predicate = predicate
-		self.uri = predicate.uri
+		self.domain = domain
+		self.uri = domain.uri
 		self.alias = alias
 		self.validators = [_validate_list]
 		self.conformers = []
@@ -153,11 +157,11 @@ class Schema(object):
 		self.aliases = { attr.alias: attr.uri for attr in attrs }
 		self.uris = { attr.uri: attr.alias for attr in attrs }
 		self.attr_validators = { attr.uri: attr.validators for attr in attrs }
-		self.data_validators = { attr.uri: attr.predicate.validator for attr in attrs }
+		self.data_validators = { attr.uri: attr.domain.validator for attr in attrs }
 		self.data_conformers = { attr.uri: attr.conformers for attr in attrs}				
 		self.required = [ attr.uri for attr in attrs if hasattr(attr,'required') ]
 		self.optional = [ attr.uri for attr in attrs if not hasattr(attr,'required') ]
-		self.datatypes = { attr.uri: attr.predicate.datatype for attr in attrs }
+		self.datatypes = { attr.uri: attr.domain.datatype for attr in attrs }
 
 	def unalias_data(self, data):
 		return rename_dictionary_keys(self.aliases, data)

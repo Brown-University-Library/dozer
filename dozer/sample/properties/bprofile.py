@@ -1,4 +1,4 @@
-from graphschema import Predicate
+from graphschema import Domain
 
 
 ### Model Namespace ###
@@ -22,24 +22,24 @@ Appointment          =  ns + 'Appointment'
 
 ### Property Declarations ###
 
-hasHospital          =  Predicate(ns + 'hasHospital',          'uri')
-hasAppointment       =  Predicate(ns + 'hasAppointment',       'uri')
-hasTraining          =  Predicate(ns + 'hasTraining',          'uri')
-appointmentFor       =  Predicate(ns + 'appointmentFor',       'uri')
-department           =  Predicate(ns + 'department',           'string')
-state                =  Predicate(ns + 'state',                'string')
-country              =  Predicate(ns + 'country',              'string')
-hasCredential        =  Predicate(ns + 'hasCredential',        'uri')
-specialtyFor         =  Predicate(ns + 'specialtyFor',         'uri')
-credentialGrantedBy  =  Predicate(ns + 'credentialGrantedBy',  'uri')
-hasOrganization      =  Predicate(ns + 'hasOrganization',      'uri')
-city                 =  Predicate(ns + 'city',                 'string')
-credentialFor        =  Predicate(ns + 'credentialFor',        'uri')
-organizationFor      =  Predicate(ns + 'organizationFor',      'uri')
-grantsCredential     =  Predicate(ns + 'grantsCredential',     'uri')
-endDate              =  Predicate(ns + 'endDate',              'dateTime')
-credentialNumber     =  Predicate(ns + 'credentialNumber',     'string')
-hasSpecialty         =  Predicate(ns + 'hasSpecialty',         'uri')
-trainingFor          =  Predicate(ns + 'trainingFor',          'uri')
-startDate            =  Predicate(ns + 'startDate',            'dateTime')
-hospitalFor          =  Predicate(ns + 'hospitalFor',          'uri')
+hasHospital          =  Domain(ns + 'hasHospital',          'uri')
+hasAppointment       =  Domain(ns + 'hasAppointment',       'uri')
+hasTraining          =  Domain(ns + 'hasTraining',          'uri')
+appointmentFor       =  Domain(ns + 'appointmentFor',       'uri')
+department           =  Domain(ns + 'department',           'string')
+state                =  Domain(ns + 'state',                'string')
+country              =  Domain(ns + 'country',              'string')
+hasCredential        =  Domain(ns + 'hasCredential',        'uri')
+specialtyFor         =  Domain(ns + 'specialtyFor',         'uri')
+credentialGrantedBy  =  Domain(ns + 'credentialGrantedBy',  'uri')
+hasOrganization      =  Domain(ns + 'hasOrganization',      'uri')
+city                 =  Domain(ns + 'city',                 'string')
+credentialFor        =  Domain(ns + 'credentialFor',        'uri')
+organizationFor      =  Domain(ns + 'organizationFor',      'uri')
+grantsCredential     =  Domain(ns + 'grantsCredential',     'uri')
+endDate              =  Domain(ns + 'endDate',              'dateTime')
+credentialNumber     =  Domain(ns + 'credentialNumber',     'string')
+hasSpecialty         =  Domain(ns + 'hasSpecialty',         'uri')
+trainingFor          =  Domain(ns + 'trainingFor',          'uri')
+startDate            =  Domain(ns + 'startDate',            'dateTime')
+hospitalFor          =  Domain(ns + 'hospitalFor',          'uri')

@@ -86,7 +86,7 @@ def main(modelDir, modelFile, propDir):
 	## end Vars for pretty printing
 
 	## Building the file string
-	out = "from graphschema import Predicate\n\n"
+	out = "from graphschema import Domain\n\n"
 	out += "\n### Model Namespace ###\n\n"
 	out += "ns =  '{0}'\n".format(namespace)
 	out += "\n### Class Declarations ###\n\n"
@@ -96,7 +96,7 @@ def main(modelDir, modelFile, propDir):
 	out += "\n### Property Declarations ###\n\n"
 	for p in ont_properties:
 		text = extract_label(p[0], namespace)
-		out += "{0}{2}=  Predicate(ns + '{0}',{2}'{1}')\n".format(
+		out += "{0}{2}=  Domain(ns + '{0}',{2}'{1}')\n".format(
 											text,p[1],' '*(pp_prop - len(text)))
 	## end Building the file string
 
