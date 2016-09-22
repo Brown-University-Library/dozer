@@ -49,6 +49,8 @@ class Domain(object):
 			self.validator = _validate_string
 		elif datatype == 'int':
 			self.validator = _validate_int
+		elif datatype == 'year' or datatype == 'gYear':
+			pass
 		else:
 			raise ValueError("Unknown datatype: " + datatype)
 

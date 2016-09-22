@@ -1,5 +1,5 @@
-from graphschema import Predicate
+from graphschema import Domain
 
 ns = 'http://www.w3.org/2000/01/rdf-schema#'
 
-label = Predicate(ns + 'label','string')
+label = Domain(ns + 'label','string')
