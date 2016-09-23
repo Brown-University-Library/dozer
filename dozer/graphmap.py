@@ -1,7 +1,12 @@
 import os
 import uuid
 
-def rename_dictionary_keys(dct, newKeyMap):
+
+######################
+## Begin Collection ##
+######################
+
+def _rename_dictionary_keys(dct, newKeyMap):
 	return { newKeyMap[k]: v for k,v in dct.items() }
 
 class Collection(object):
@@ -32,13 +37,13 @@ class Collection(object):
 		try:
 			return rename_dictionary_keys(data, self.aliases)
 		except KeyError as e:
-			raise "Unknown field: " + e 
+			raise "Unknown field: " + e.message 
 
 	def alias_data(self, data):
 		try:
 			return rename_dictionary_keys(data, self.unaliases)
 		except KeyError as e:
-			raise "Unknown field: " + e
+			raise "Unknown field: " + e.message
 
 	def create(self, data=dict(), aliased=True):
 		uri = self.mint_new_uri()
@@ -112,6 +117,13 @@ class Collection(object):
 		else:
 			return resp
 
+####################
+## End Collection ##
+####################
+
+####################
+## Begin Resource ##
+####################
 
 def _add_missing_keys(dct, keyList):
 	out = dct.copy()
@@ -154,6 +166,11 @@ class Resource(object):
 		out = { self.uri: data }
 		return out
 
+	# Need to add a /validate_none/ option
+	# to be set on the route. See if performance
+	# is improved.
+	# maybe also, /validate_data/, etc.?
+	# Options for degrees of validation?
 	def update(self, data,
 				validate_raw=False,
 				validate_stored=False,
@@ -174,3 +191,7 @@ class Resource(object):
 		# except:
 		# 	raise ValueError
 		self.data.update(data)
+
+##################
+## End Resource ##
+##################

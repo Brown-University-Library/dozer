@@ -65,11 +65,6 @@ class Domain(object):
 ## Begin Attribute ##
 #####################
 
-def _validate_list(values):
-	if not isinstance(values, list):
-		raise TypeError('Data must be in list format')
-	return values
-
 def _validate_required(values):
 	if len(values) == 0:
 		raise ValueError("Value is required")
@@ -145,7 +140,6 @@ class Attribute(object):
 				raise Exception(self.only)
 		return values
 
-	# _validate_list up here? _conform_list?
 	def _conform_always(self, values):
 		return list(set(self.always) | set(values))
 
@@ -163,6 +157,27 @@ class Attribute(object):
 ## Begin Schema ##
 ##################
 
+def _validate_map(dct):
+	try:
+		assert isinstance(dct, dict)
+	except:
+		raise ValueError(dct)
+	return dct
+
+def _validate_fields(dct, keyList):
+	try:
+		assert set(dct.keys()) == set(keyList)
+	except:
+		raise ValueError(set(dct.keys()) ^ set(keyList))
+	return dct
+
+def _validate_map_arrays(dct):
+	for k, v in dct.items():
+		try:
+			assert isinstance(v, list)
+		except:
+			raise ValueError(k)
+	return dct		
 
 def attribute_builder(aliasDict):
 	for alias in aliasDict:
@@ -197,19 +212,9 @@ class Schema(object):
 		return out
 
 	def validate_structure(self, data):
-		try:
-			assert isinstance(data, dict)
-		except:
-			raise ValueError(data)
-		try:
-			assert set(data.keys()) == set(self.attributes)
-		except:
-			raise ValueError(set(data.keys()) ^ set(self.attributes))
-		for k, v in data.items():
-			try:
-				assert isinstance(v, list)
-			except:
-				raise ValueError(k)
+		data = _validate_map(data)
+		data = _validate_fields(data, self.attributes)
+		data = _validate_map_arrays(data)
 		return data
 
 	def validate_attributes(self, data):
