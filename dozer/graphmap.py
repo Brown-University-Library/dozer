@@ -1,6 +1,8 @@
 import os
 import uuid
 
+def rename_dictionary_keys(dct, newKeyMap):
+	return { newKeyMap[k]: v for k,v in dct.items() }
 
 class Collection(object):
 	def __init__(self, name, schema, named_graph, namespace, prefix):
@@ -9,6 +11,8 @@ class Collection(object):
 		self.named_graph = named_graph
 		self.namespace = namespace
 		self.prefix = prefix
+		self.aliases = schema.labels
+		self.unaliases = { v: k for k, v in schema.labels.items() }
 
 	def register_endpoint(self, endpoint):
 		self.endpoint = endpoint
@@ -24,10 +28,22 @@ class Collection(object):
 	def namespace_uri(self, suffix):
 		return os.path.join(self.namespace, suffix)
 
+	def unalias_data(self, data):
+		try:
+			return rename_dictionary_keys(data, self.aliases)
+		except KeyError as e:
+			raise "Unknown field: " + e 
+
+	def alias_data(self, data):
+		try:
+			return rename_dictionary_keys(data, self.unaliases)
+		except KeyError as e:
+			raise "Unknown field: " + e
+
 	def create(self, data=dict(), aliased=True):
 		uri = self.mint_new_uri()
 		if aliased:
-			data = self.schema.unalias_data(data)
+			data = self.unalias_data(data)
 		res = Resource(collection=self, uri=uri, incoming=data)
 		resp = self.endpoint.update(insert=res)
 		if resp == 200:
@@ -43,9 +59,9 @@ class Collection(object):
 		## ALSO
 		## lack of attribute validation can introduce issues
 		if aliased:
-			params = self.schema.unalias_data(params)
-		query = Resource(collection=self, query=params)
-		resp = self.endpoint.construct(query, optional=False)
+			params = self.unalias_data(params)
+		qres = Resource(collection=self, query=params)
+		resp = self.endpoint.construct(qres, optional=False)
 		resList = [ Resource(uri=data.keys()[0],
 					collection=self, searched=data.values()[0])
 					for data in resp ]
@@ -53,8 +69,8 @@ class Collection(object):
 
 	def find(self, rabid):
 		uri = self.namespace_uri(rabid)
-		query = Resource(uri=uri, collection=self, query={})
-		resp = self.endpoint.construct(query)
+		qres = Resource(uri=uri, collection=self, query={})
+		resp = self.endpoint.construct(qres)
 		resList = [ Resource(uri=data.keys()[0],
 					collection=self, found=data.values()[0])
 					for data in resp ]
@@ -65,7 +81,7 @@ class Collection(object):
 		uri, data = data.items()[0]
 		assert uri == existing.uri
 		if aliased:
-			data = self.schema.unalias_data(data)
+			data = self.unalias_data(data)
 		pending = Resource(
 					uri=existing.uri, collection=self, incoming=data)
 		resp = self.endpoint.update(insert=pending, delete=existing)
@@ -78,7 +94,7 @@ class Collection(object):
 		uri, data = data.items()[0]
 		assert uri == existing.uri
 		if aliased:
-			data = self.schema.unalias_data(data)
+			data = self.unalias_data(data)
 		uri, existing_data = existing.to_dict(alias=False).items()[0]
 		pending = Resource(uri=existing.uri,
 							collection=self, stored=existing_data)
@@ -95,6 +111,15 @@ class Collection(object):
 			return 204
 		else:
 			return resp
+
+
+def _add_missing_keys(dct, keyList):
+	out = dct.copy()
+	out.update({ k: list() for k in keyList if k not in dct })
+	return out
+
+def _flag_missing_data(dct):
+	return { k: v if v else [None] for k,v in dct.items() }
 
 class Resource(object):
 	def __init__(self, collection, uri=None,
@@ -123,7 +148,7 @@ class Resource(object):
 
 	def to_dict(self, alias=True):
 		if alias:
-			data = self.schema.alias_data(self.data)
+			data = self.collection.alias_data(self.data)
 		else:
 			data = self.data
 		out = { self.uri: data }
@@ -133,15 +158,19 @@ class Resource(object):
 				validate_raw=False,
 				validate_stored=False,
 				validate_query=False):
+		# try:
 		if validate_raw:
-			data = self.schema.conform_structure(data)
-			data = self.schema.conform_data(data)
+			data = self.schema.validate_structure(data)
 			data = self.schema.validate_attributes(data)
 			data = self.schema.validate_data(data)
 		if validate_stored:
 			data = self.schema.conform_data(data)
 		if validate_query:
-			data = self.schema.conform_structure(data)
+			data = _add_missing_keys(data, self.schema.attributes)
+			data = self.schema.validate_structure(data)
+			data = self.schema.validate_data(data)
 			data = self.schema.conform_data(data)
-			data = { k: v if v else [None] for k,v in data.items() }
+			data = _flag_missing_data(data)
+		# except:
+		# 	raise ValueError
 		self.data.update(data)

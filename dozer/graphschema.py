@@ -89,7 +89,7 @@ class Attribute(object):
 		self.domain = domain
 		self.uri = domain.uri
 		self.alias = alias
-		self.validators = [_validate_list]
+		self.validators = []
 		self.conformers = []
 		if required:
 			self.required = True
@@ -100,18 +100,50 @@ class Attribute(object):
 		if always:
 			assert isinstance(always, list)
 			self.always = always
+			self.validators.append(self._validate_always)
 			self.conformers.append(self._conform_always)
 		if allowed:
 			assert isinstance(allowed, list)
 			self.allowed = allowed
+			self.validators.append(self._validate_allowed)
 			self.conformers.append(self._conform_allowed)
 		if only:
 			assert isinstance(only, list)
 			self.only = only
+			self.validators.append(self._validate_only)
 			self.conformers.append(self._conform_only)
 
 	def set_alias(self, alias):
 		self.alias = alias
+
+	def _validate_always(self, values):
+		for always in self.always:
+			try:
+				assert always in values
+			except:
+				raise Exception(always)
+		return values
+
+	def _validate_allowed(self, values):
+		for value in values:
+			try:
+				assert value in self.allowed
+			except:
+				raise Exception(self.allowed)
+		return values
+
+	def _validate_only(self, values):
+		for only in self.only:
+			try:
+				assert only in values
+			except:
+				raise Exception(self.only)
+		for value in values:
+			try:
+				assert value in self.only
+			except:
+				raise Exception(self.only)
+		return values
 
 	# _validate_list up here? _conform_list?
 	def _conform_always(self, values):
@@ -131,16 +163,6 @@ class Attribute(object):
 ## Begin Schema ##
 ##################
 
-def rename_dictionary_keys(dct, newKeyMap):
-	return { newKeyMap[k]: v for k,v in dct.items() }
-
-def filter_unrecognized_keys(dct, keyList):
-	return { k: v for k,v in dct.items() if k in keyList }
-
-def add_missing_keys(dct, keyList):
-	out = dct.copy()
-	out.update({ k: list() for k in keyList if k not in dct })
-	return out
 
 def attribute_builder(aliasDict):
 	for alias in aliasDict:
@@ -151,9 +173,9 @@ class Schema(object):
 	def __init__(self, attrs):
 		if isinstance(attrs, dict):
 			attrs = attribute_builder(attrs)
-		self.attributes = attrs
-		self.aliases = { attr.alias: attr.uri for attr in attrs }
-		self.uris = { attr.uri: attr.alias for attr in attrs }
+		self._attrs = attrs
+		self.attributes = [ attr.uri for attr in attrs ]
+		self.labels = { attr.alias: attr.uri for attr in attrs }
 		self.attr_validators = { attr.uri: attr.validators for attr in attrs }
 		self.data_validators = { attr.uri: attr.domain.validator for attr in attrs }
 		self.data_conformers = { attr.uri: attr.conformers for attr in attrs}				
@@ -161,31 +183,34 @@ class Schema(object):
 		self.optional = [ attr.uri for attr in attrs if not hasattr(attr,'required') ]
 		self.datatypes = { attr.uri: attr.domain.datatype for attr in attrs }
 
-	def unalias_data(self, data):
-		return rename_dictionary_keys(data, self.aliases)
-
-	def alias_data(self, data):
-		return rename_dictionary_keys(data, self.uris)
-
-	def conform_structure(self, data):
-		# Only include recognized attribute/values
-		data = filter_unrecognized_keys(data, self.uris.keys())
-		# Ensure all attributes are present
-		data = add_missing_keys(data, self.uris.keys())
-		return data
-
 	def conform_data(self, data):
 		out = dict()
 		for k, v in data.items():
-			validators = self.data_conformers[k]
+			conformers = self.data_conformers[k]
 			filtered = v
-			for validator in validators:
+			for conformer in conformers:
 				try:
-					filtered = validator(filtered)
+					filtered = conformer(filtered)
 				except ValueError as e:
 					raise Exception(e,k,v)
 			out[k] = filtered
 		return out
+
+	def validate_structure(self, data):
+		try:
+			assert isinstance(data, dict)
+		except:
+			raise ValueError(data)
+		try:
+			assert set(data.keys()) == set(self.attributes)
+		except:
+			raise ValueError(set(data.keys()) ^ set(self.attributes))
+		for k, v in data.items():
+			try:
+				assert isinstance(v, list)
+			except:
+				raise ValueError(k)
+		return data
 
 	def validate_attributes(self, data):
 		out = dict()
