@@ -1,6 +1,10 @@
 import os
 import uuid
 
+class AliasError(Exception):
+	def __init__(self, msg):
+		self.msg = msg
+
 
 ######################
 ## Begin Collection ##
@@ -35,15 +39,17 @@ class Collection(object):
 
 	def unalias_data(self, data):
 		try:
-			return rename_dictionary_keys(data, self.aliases)
+			return _rename_dictionary_keys(data, self.aliases)
 		except KeyError as e:
-			raise "Unknown field: " + e.message 
+			raise AliasError(
+					"Unknown field: " + e.message) 
 
 	def alias_data(self, data):
 		try:
-			return rename_dictionary_keys(data, self.unaliases)
+			return _rename_dictionary_keys(data, self.unaliases)
 		except KeyError as e:
-			raise "Unknown field: " + e.message
+			raise AliasError(
+					"Unknown field: " + e.message)
 
 	def create(self, data=dict(), aliased=True):
 		uri = self.mint_new_uri()

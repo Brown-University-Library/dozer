@@ -1,6 +1,8 @@
 import unittest
 import context
 
+from dozer.graphschema import ValidationError
+
 from dozer.graphschema import Domain, _validate_uri, \
 	_validate_int, _validate_datetime, _validate_string
 
@@ -11,7 +13,7 @@ class TestDomain(unittest.TestCase):
 		# technically, a url
 		uri = "http://example.com"
 		self.assertEqual(uri, _validate_uri(uri))
-		with self.assertRaises(ValueError):
+		with self.assertRaises(ValidationError):
 			bad_uri = "//this.is.not.a.uri"
 			_validate_uri(bad_uri)
 
@@ -22,7 +24,7 @@ class TestDomain(unittest.TestCase):
 		# which includes microsecond + timezone
 		dt = "1994-11-05T13:15:30"
 		self.assertEqual(dt, _validate_datetime(dt))
-		with self.assertRaises(ValueError):
+		with self.assertRaises(ValidationError):
 			bad_dt = "1994-11-05"
 			_validate_datetime(bad_dt)
 
@@ -31,7 +33,7 @@ class TestDomain(unittest.TestCase):
 		# this needs to be smarter
 		st = "String"
 		self.assertEqual(st, _validate_string(st))
-		with self.assertRaises(UnicodeError):
+		with self.assertRaises(ValidationError):
 			bad_st = u"\u3053\n".encode('utf-16')
 			_validate_string(bad_st)
 
@@ -39,7 +41,7 @@ class TestDomain(unittest.TestCase):
 		# requires python int
 		itg = 9
 		self.assertEqual(itg, _validate_int(itg))
-		with self.assertRaises(ValueError):
+		with self.assertRaises(ValidationError):
 			bad_itg = "9"
 			_validate_int(bad_itg)
 
@@ -56,7 +58,7 @@ class TestDomain(unittest.TestCase):
 
 	def test_invalid_Domain(self):
 		# Bad uri
-		with self.assertRaises(ValueError):
+		with self.assertRaises(ValidationError):
 			unit = Domain('//baduri','int')
 		# Bad datatype
 		with self.assertRaises(ValueError):
@@ -81,14 +83,14 @@ class TestAttribute(unittest.TestCase):
 	def test_required(self):
 		x = ['listitem']
 		self.assertEqual(x, _validate_required(x))
-		with self.assertRaises(ValueError):
+		with self.assertRaises(ValidationError):
 			badlist = []
 			_validate_required(badlist)
 
 	def test_unique(self):
 		x = ['listitem']
 		self.assertEqual(x, _validate_unique(x))
-		with self.assertRaises(ValueError):
+		with self.assertRaises(ValidationError):
 			badlist = ['too','many']
 			_validate_unique(badlist)
 
@@ -165,9 +167,38 @@ class TestAttribute(unittest.TestCase):
 		for val in test_2:
 			self.assertNotIn(val, conformed_2)
 
-from dozer.graphschema import Schema
+from dozer.graphschema import Schema, _validate_map, \
+	_validate_fields, _validate_map_arrays
 
 class TestSchema(unittest.TestCase):
+
+	def test_validate_map(self):
+		dct = { 'abc': 1 }
+		valid = _validate_map(dct)
+		self.assertEqual(valid, dct)
+		with self.assertRaises(ValidationError):
+			not_a_dict = list()
+			_validate_map(not_a_dict)
+
+	def test_validate_fields(self):
+		expected = [ 'abc', 'def', 'xyz' ]
+		data = { 'abc': 1, 'def': 2, 'xyz': 3}
+		valid = _validate_fields(data, expected)
+		self.assertEqual(valid, data)
+		with self.assertRaises(ValidationError):
+			missing = { 'abc': 1, 'def': 2 }
+			_validate_fields(missing, expected)
+		with self.assertRaises(ValidationError):
+			different = { 'abc': 1, 'def': 2, 'xyz': 3, 'wrong': 4 }
+			_validate_fields(different, expected)
+
+	def test_validate_map_arrays(self):
+		data = { 'abc': [1], 'def': ['2'], 'xyz': list(set([3])) }
+		valid = _validate_map_arrays(data)
+		self.assertEqual(valid, data)
+		with self.assertRaises(ValidationError):
+			value_not_a_list = { 'abc': [1], 'def': '2' }
+			_validate_map_arrays(value_not_a_list)		
 
 	def test_Schema_construction(self):
 		pass

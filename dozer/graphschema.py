@@ -1,6 +1,10 @@
 import datetime
 import urlparse
 
+class ValidationError(Exception):
+	def __init__(self, msg):
+		self.msg = msg
+
 #####################
 ## Begin Domain #####
 #####################
@@ -11,27 +15,27 @@ def _validate_uri(value):
 		assert parsed.scheme
 		assert parsed.netloc
 	except:
-		raise ValueError("Bad URI: " + value)
+		raise ValidationError("Bad URI: " + value)
 	return value
 
 def _validate_int(value):
 	if isinstance(value, int):
 		return value
 	else:
-		raise ValueError("Bad int: " + value)
+		raise ValidationError("Bad int: " + value)
 
 def _validate_datetime(value):
 	try:
 		datetime.datetime.strptime(value, '%Y-%m-%dT%H:%M:%S')
 	except:	
-		raise ValueError("Bad date: " + value)
+		raise ValidationError("Bad date: " + value)
 	return value
 
 def _validate_string(value):
 	try:
 		value.decode('UTF-8')
 	except:
-		raise UnicodeError("Bad unicode: " + value)
+		raise ValidationError("Bad unicode: " + value)
 	return value
 
 class Domain(object):
@@ -67,12 +71,12 @@ class Domain(object):
 
 def _validate_required(values):
 	if len(values) == 0:
-		raise ValueError("Value is required")
+		raise ValidationError("Value is required")
 	return values
 
 def _validate_unique(values):
 	if len(values) > 1:
-		raise ValueError("Only one value permitted")
+		raise ValidationError("Only one value permitted")
 	return values
 
 class Attribute(object):
@@ -116,7 +120,7 @@ class Attribute(object):
 			try:
 				assert always in values
 			except:
-				raise Exception(always)
+				raise ValidationError(always)
 		return values
 
 	def _validate_allowed(self, values):
@@ -124,7 +128,7 @@ class Attribute(object):
 			try:
 				assert value in self.allowed
 			except:
-				raise Exception(self.allowed)
+				raise ValidationError(self.allowed)
 		return values
 
 	def _validate_only(self, values):
@@ -132,12 +136,12 @@ class Attribute(object):
 			try:
 				assert only in values
 			except:
-				raise Exception(self.only)
+				raise ValidationError(self.only)
 		for value in values:
 			try:
 				assert value in self.only
 			except:
-				raise Exception(self.only)
+				raise ValidationError(self.only)
 		return values
 
 	def _conform_always(self, values):
@@ -161,14 +165,18 @@ def _validate_map(dct):
 	try:
 		assert isinstance(dct, dict)
 	except:
-		raise ValueError(dct)
+		raise ValidationError("Bad syntax: {0}".format(type(dct)))
 	return dct
 
 def _validate_fields(dct, keyList):
 	try:
 		assert set(dct.keys()) == set(keyList)
 	except:
-		raise ValueError(set(dct.keys()) ^ set(keyList))
+		raise ValidationError(
+			"Missing keys: {0} || Extra keys: {1}".format(
+				', '.join(list(set(keyList) - set(dct.keys()))),
+				', '.join(list(set(dct.keys()) - set(keyList))))
+			)
 	return dct
 
 def _validate_map_arrays(dct):
@@ -176,7 +184,9 @@ def _validate_map_arrays(dct):
 		try:
 			assert isinstance(v, list)
 		except:
-			raise ValueError(k)
+			raise ValidationError(
+				"Expected list. {0} is {1}".format(k,type(v))
+				)
 	return dct		
 
 def attribute_builder(aliasDict):
@@ -206,8 +216,8 @@ class Schema(object):
 			for conformer in conformers:
 				try:
 					filtered = conformer(filtered)
-				except ValueError as e:
-					raise Exception(e,k,v)
+				except ValidationError as e:
+					raise ValidationError(e,k,v)
 			out[k] = filtered
 		return out
 
@@ -225,8 +235,8 @@ class Schema(object):
 			for validator in validators:
 				try:
 					filtered = validator(filtered)
-				except ValueError as e:
-					raise Exception(e,k,v)
+				except ValidationError as e:
+					raise ValidationError(e,k,v)
 			out[k] = filtered
 		return out
 
@@ -236,8 +246,8 @@ class Schema(object):
 			validator = self.data_validators[k]
 			try:
 				out[k] = [validator(d) for d in v]
-			except ValueError as e:
-				raise Exception(e,k,d)
+			except ValidationError as e:
+				raise ValidationError(e,k,d)
 		return out
 
 ################
