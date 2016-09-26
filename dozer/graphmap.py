@@ -143,9 +143,9 @@ class Resource(object):
 	def __init__(self, collection, uri=None,
 					incoming=None, query=None,
 					searched=None, found=None):
-		self.data = dict()
 		self.collection = collection
 		self.schema = collection.schema
+		self.data = { attr: [] for attr in self.schema.attributes }
 		self.uri = uri
 		if isinstance(incoming, dict):
 			self.update(incoming, validate_raw=True)
@@ -187,16 +187,20 @@ class Resource(object):
 			data = self.schema.validate_attributes(data)
 			data = self.schema.validate_data(data)
 		if validate_stored:
-			data = self.schema.conform_data(data)
+			data = self.schema.conform(data)
 		if validate_query:
 			data = _add_missing_keys(data, self.schema.attributes)
 			data = self.schema.validate_structure(data)
 			data = self.schema.validate_data(data)
-			data = self.schema.conform_data(data)
+			data = self.schema.conform(data)
 			data = _flag_missing_data(data)
+		try:
+			for k, v in data.items():
+				self.data[k] = sorted(v)
+		except KeyError:
+			raise Exception("Something is terribly wrong")
 		# except:
 		# 	raise ValueError
-		self.data.update(data)
 
 ##################
 ## End Resource ##

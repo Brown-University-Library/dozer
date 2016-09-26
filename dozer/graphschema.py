@@ -203,15 +203,15 @@ class Schema(object):
 		self.labels = { attr.alias: attr.uri for attr in attrs }
 		self.attr_validators = { attr.uri: attr.validators for attr in attrs }
 		self.data_validators = { attr.uri: attr.domain.validator for attr in attrs }
-		self.data_conformers = { attr.uri: attr.conformers for attr in attrs}				
+		self.conformers = { attr.uri: attr.conformers for attr in attrs}				
 		self.required = [ attr.uri for attr in attrs if hasattr(attr,'required') ]
 		self.optional = [ attr.uri for attr in attrs if not hasattr(attr,'required') ]
 		self.datatypes = { attr.uri: attr.domain.datatype for attr in attrs }
 
-	def conform_data(self, data):
+	def conform(self, data):
 		out = dict()
 		for k, v in data.items():
-			conformers = self.data_conformers[k]
+			conformers = self.conformers[k]
 			filtered = v
 			for conformer in conformers:
 				try:
