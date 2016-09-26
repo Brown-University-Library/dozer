@@ -31,6 +31,13 @@ def _validate_datetime(value):
 		raise ValidationError("Bad date: " + value)
 	return value
 
+def _validate_date(value):
+	try:
+		datetime.datetime.strptime(value, '%Y-%m-%d')
+	except:	
+		raise ValidationError("Bad date: " + value)
+	return value
+
 def _validate_string(value):
 	try:
 		value.decode('UTF-8')
@@ -48,7 +55,7 @@ class Domain(object):
 		elif datatype == 'dateTime' or datatype == 'datetime':
 			self.validator = _validate_datetime
 		elif datatype == 'date':
-			self.validator = _validate_datetime
+			self.validator = _validate_date
 		elif datatype == 'string':
 			self.validator = _validate_string
 		elif datatype == 'int':
@@ -236,7 +243,8 @@ class Schema(object):
 				try:
 					filtered = validator(filtered)
 				except ValidationError as e:
-					raise ValidationError(e,k,v)
+					raise ValidationError(
+					"{0} | {1}".format(k,e.msg))
 			out[k] = filtered
 		return out
 
@@ -247,7 +255,8 @@ class Schema(object):
 			try:
 				out[k] = [validator(d) for d in v]
 			except ValidationError as e:
-				raise ValidationError(e,k,d)
+				raise ValidationError(
+					"{0} | {1}".format(k, e.msg))
 		return out
 
 ################
