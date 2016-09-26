@@ -1,6 +1,12 @@
 from graphschema import Schema, Attribute
 from graphmap import Collection
 from sample.properties import foaf, vivo, blocal, rdfs, rdf, bdisplay
+from sparqler import Sparqler
+
+spq = Sparqler(
+		'http://localhost:8082/VIVO/query',
+		'http://localhost:8080/rab/api/sparqlUpdate',
+		'http')
 
 #rename presets as only; add parameter for allowed
 fisFacultySchema = Schema({
@@ -28,3 +34,4 @@ fisFaculty = Collection(
 				named_graph='http://vitro.mannlib.cornell.edu/default/vitro-kb-2',
 				namespace='http://vivo.brown.edu/individual/',
 				prefix='faculty')
+fisFaculty.register_endpoint(spq)

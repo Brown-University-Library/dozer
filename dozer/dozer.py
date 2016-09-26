@@ -6,20 +6,8 @@ import json
 app = Flask(__name__)
 CORS(app)
 
-# http://flask.pocoo.org/docs/0.11/patterns/apierrors/
-class RESTError(Exception):
-    status_code = 400
-    def __init__(self, message, status_code=None, payload=None):
-        Exception.__init__(self)
-        self.message = message
-        if status_code is not None:
-            self.status_code = status_code
-        self.payload = { 'context': payload }
-
-    def to_dict(self):
-        rv = dict(self.payload or ())
-        rv['message'] = self.message
-        return rv
+from sample.resources.errors import ValidationError, \
+	AliasError, RESTError
 
 @app.errorhandler(RESTError)
 def handle_rest_error(error):
@@ -27,18 +15,9 @@ def handle_rest_error(error):
     response.status_code = error.status_code
     return response
 
-from graphschema import ValidationError
-from graphmap import AliasError
-from sparqler import Sparqler
-
-spq = Sparqler(
-		'http://localhost:8082/VIVO/query',
-		'http://localhost:8080/rab/api/sparqlUpdate',
-		'http')
 
 ## API for FIS faculty data
 from sample.resources.fisFaculty import fisFaculty
-fisFaculty.register_endpoint(spq)
 
 @app.route('/rabdata/fisfaculty/', methods=['GET'])
 def index():
@@ -99,21 +78,23 @@ def replace(rabid):
 		raise RESTError('Data modified on server',
 							status_code=409, payload=fisfac.to_dict())
 
-
 @app.route('/rabdata/fisfaculty/<rabid>', methods=['DELETE'])
 def destroy(rabid):
 	try:
 		fisfac = fisFaculty.find(rabid=rabid)
 	except:
-		raise RESTError('Resource not found', status_code=404)
+		raise RESTError('No resource to delete', status_code=410)
 	if fisfac.etag == request.headers.get("If-Match"):
 		try:
 			fisFaculty.remove(fisfac)
-			return 'successful delete 204'
-		except:
-			return 'failed delete 403'
+			resp = make_response('', 204)
+			return resp
+		except (AliasError, ValidationError) as e:
+			raise RESTError('Validation',
+				status_code=400, payload=e.msg)
 	else:
-		return 'bad delete 409'
+		raise RESTError('Data modified on server',
+							status_code=409, payload=fisfac.to_dict())
 
 if __name__ == '__main__':
 	app.run(host='0.0.0.0', port=8000, debug=True)
