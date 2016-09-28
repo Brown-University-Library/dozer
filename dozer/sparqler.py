@@ -180,9 +180,12 @@ def parseJSONString(stringData):
 	return triples
 
 class HttpSparqlApi(object):
-	def __init__(self, query_endpoint, update_endpoint):
+	def __init__(self, query_endpoint, update_endpoint,
+					update_user, update_password):
 		self.query_endpoint = query_endpoint
 		self.update_endpoint = update_endpoint
+		self.user = update_user
+		self.passwd = update_password
 
 	def query(self, qbody):
 		# Output options:
@@ -203,8 +206,8 @@ class HttpSparqlApi(object):
 
 	def update(self, pbody):
 		payload = {
-			'email': "vivo_root@brown.edu",
-			'password': "goVivo",
+			'email': self.user,
+			'password': self.passwd,
 			'update': pbody
 		}
 		header = {
@@ -228,8 +231,8 @@ def optionalize_statement(triple):
 def write_optional(triple):
 	return optionalize_statement(write_statement(triple))
 
-def build_construct_query(required, optional):
-	constructTemplate = u"CONSTRUCT{{{0}}}WHERE{{{1}}}"
+def build_construct_query(graph, required, optional):
+	constructTemplate = u"CONSTRUCT{{{0}}}WHERE{{GRAPH{1}{{{2}}}}}"
 	construct = ""
 	where = ""
 	for triple in required:
@@ -242,7 +245,7 @@ def build_construct_query(required, optional):
 			construct += stmt
 			optl = write_optional(triple)
 			where += optl
-	qbody = constructTemplate.format(construct, where)
+	qbody = constructTemplate.format(construct, graph, where)
 	return qbody
 
 def build_insert_delete_query(insert=None,insert_graph=None,
@@ -283,13 +286,15 @@ def set_difference(list1, list2):
 	return (out1, out2)
 
 class Sparqler(object):
-	def __init__(self, query_endpoint, update_endpoint, sparql_api):
+	def __init__(self, query_endpoint, update_endpoint,
+					update_user, update_password, sparql_api):
 		if sparql_api == 'rdflib':
 			self.endpoint = RdfLibSparqlApi(
 								query_endpoint, update_endpoint)
 		elif sparql_api == 'http' or sparql_api == 'HTTP':
 			self.endpoint = HttpSparqlApi(
-								query_endpoint, update_endpoint)
+								query_endpoint, update_endpoint,
+								update_user, update_password)
 
 	def construct(self, resource, optional=True):
 		query = SPARQLRequest(resource)
@@ -298,7 +303,8 @@ class Sparqler(object):
 			optional = query.write_construct_triples(query.optional)
 		else:
 			optional = None
-		qbody = build_construct_query(required, optional)
+		query_graph = query.named_graph
+		qbody = build_construct_query(query_graph, required, optional)
 		results = self.endpoint.query(qbody)
 		triples = self.endpoint.convert_results_to_triples(
 					results, query.schema.datatypes)
