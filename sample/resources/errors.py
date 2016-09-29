@@ -1,5 +1,5 @@
-from graphschema import ValidationError
-from graphmap import AliasError
+from dozer.graphschema import ValidationError
+from dozer.graphmap import AliasError
 
 # http://flask.pocoo.org/docs/0.11/patterns/apierrors/
 class RESTError(Exception):

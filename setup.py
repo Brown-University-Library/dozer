@@ -16,5 +16,5 @@ setup(
     url='http://github.com/Brown-University-Library/dozer',
     license='MIT',
     packages=find_packages(exclude=('sample','tests', 'docs'))
-    install_requires=['requests'],
+    install_requires=['requests','click'],
 )

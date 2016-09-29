@@ -1,9 +1,11 @@
 import os
 
-from graphschema import Schema, Attribute
-from graphmap import Collection
-from sample.properties import foaf, vivo, blocal, rdfs, rdf, bdisplay
-from sparqler import Sparqler
+from dozer.graphschema import Schema, Attribute
+from dozer.graphmap import Collection
+from dozer.sparqler import Sparqler
+
+from properties import foaf, vivo, blocal, rdfs, rdf, bdisplay
+
 
 query_api = os.environ['QUERY_URL']
 update_api = os.environ['UPDATE_URL']

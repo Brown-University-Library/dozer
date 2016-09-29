@@ -1,4 +1,6 @@
 #!flask/bin/python
+import context
+
 from flask import Flask, jsonify, abort, request, make_response, url_for
 from flask.ext.cors import CORS
 import json
@@ -6,7 +8,7 @@ import json
 app = Flask(__name__)
 CORS(app)
 
-from sample.resources.errors import ValidationError, \
+from resources.errors import ValidationError, \
 	AliasError, RESTError
 
 @app.errorhandler(RESTError)
@@ -17,7 +19,7 @@ def handle_rest_error(error):
 
 
 ## API for FIS faculty data
-from sample.resources.fisFaculty import fisFaculty
+from resources.fisFaculty import fisFaculty
 
 @app.route('/rabdata/fisfaculty/', methods=['GET'])
 def index():

@@ -1,7 +1,8 @@
 import sys
 import os
-
 import xml.etree.ElementTree as ET
+
+import click
 
 xsd_ns = "http://www.w3.org/2001/XMLSchema#"
 owl_ns = "http://www.w3.org/2002/07/owl#"
@@ -15,9 +16,30 @@ def extract_label(uri, namespace):
 	label = uri[len(namespace):]
 	return label
 
-def main(modelDir, modelFile, propDir):
-
+@click.command()
+@click.option('--models', type=click.Path(exists=True))
+@click.option('--model', type=click.Path(exists=True))
+@click.option('--target', type=click.Path(exists=True))
+def scaffold(models, model, target):
 	## Build document tree
+
+	if models:
+		## List ontology files from model_dir
+		model_files = []
+		for (model_path, _, model_file) in os.walk(models):
+			model_files.extend(model_file)
+		## end List ontology files from model_dir
+
+		## Run script for each model file
+		for mfile in model_files:
+			main(models, mfile, target)
+		## end Run script for each model file
+
+	elif model:
+		main(models, model, target)
+
+
+def main(modelDir, modelFile, propDir):
 	tree = ET.parse(modelDir+modelFile)
 	root = tree.getroot()
 	## end Build document tree
@@ -86,7 +108,7 @@ def main(modelDir, modelFile, propDir):
 	## end Vars for pretty printing
 
 	## Building the file string
-	out = "from graphschema import Domain\n\n"
+	out = "from dozer.graphschema import Domain\n\n"
 	out += "\n### Model Namespace ###\n\n"
 	out += "ns =  '{0}'\n".format(namespace)
 	out += "\n### Class Declarations ###\n\n"
@@ -106,21 +128,22 @@ def main(modelDir, modelFile, propDir):
 	## end Write the file 
 
 if __name__ == "__main__":
+	scaffold()
 
-	## Expects as arguments:
-	## 1: a directory holding RDF/XML ontology files
-	## files *MUST* have extension /.xml/
-	## 2: a directory to write to 
-	model_dir = sys.argv[1]
-	prop_dir = sys.argv[2]
+	# ## Expects as arguments:
+	# ## 1: a directory holding RDF/XML ontology files
+	# ## files *MUST* have extension /.xml/
+	# ## 2: a directory to write to 
+	# model_dir = sys.argv[1]
+	# prop_dir = sys.argv[2]
 
-	## List ontology files from model_dir
-	model_files = []
-	for (model_path, _, model_file) in os.walk(model_dir):
-		model_files.extend(model_file)
-	## end List ontology files from model_dir
+	# ## List ontology files from model_dir
+	# model_files = []
+	# for (model_path, _, model_file) in os.walk(model_dir):
+	# 	model_files.extend(model_file)
+	# ## end List ontology files from model_dir
 
-	## Run script for each model file
-	for mfile in model_files:
-		main(model_dir, mfile, prop_dir)
-	## end Run script for each model file
+	# ## Run script for each model file
+	# for mfile in model_files:
+	# 	main(model_dir, mfile, prop_dir)
+	# ## end Run script for each model file

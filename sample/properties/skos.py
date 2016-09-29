@@ -1,4 +1,4 @@
-from graphschema import Domain
+from dozer.graphschema import Domain
 
 
 ### Model Namespace ###
