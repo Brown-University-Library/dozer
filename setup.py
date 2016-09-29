@@ -15,6 +15,6 @@ setup(
     author_email='me@stevenmccauley.me',
     url='http://github.com/Brown-University-Library/dozer',
     license='MIT',
-    packages=find_packages(exclude=('sample','tests', 'docs'))
+    packages=find_packages(exclude=('sample','tests')),
     install_requires=['requests','click'],
 )
