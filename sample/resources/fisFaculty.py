@@ -38,7 +38,7 @@ fisFacultySchema = Schema({
 fisFaculty = Collection(
 				name='fisFaculty',
 				schema=fisFacultySchema,
-				named_graph='http://vivo.brown.edu/data/identity',
+				named_graph='http://vivo.brown.edu/data/fis-faculty',
 				namespace='http://vivo.brown.edu/individual/',
 				prefix='faculty')
 fisFaculty.register_endpoint(spq)
