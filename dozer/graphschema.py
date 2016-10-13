@@ -38,6 +38,13 @@ def _validate_date(value):
 		raise ValidationError("Bad date: " + value)
 	return value
 
+def _validate_year(value):
+	try:
+		datetime.datetime.strptime(value, '%Y')
+	except:	
+		raise ValidationError("Bad year: " + value)
+	return value
+
 def _validate_string(value):
 	try:
 		value.decode('UTF-8')
@@ -61,7 +68,7 @@ class Domain(object):
 		elif datatype == 'int':
 			self.validator = _validate_int
 		elif datatype == 'year' or datatype == 'gYear':
-			pass
+			self.validator = _validate_year
 		else:
 			raise ValueError("Unknown datatype: " + datatype)
 

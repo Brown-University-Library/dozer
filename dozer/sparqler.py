@@ -45,7 +45,13 @@ def _XSD_encode_date(value):
 	try:
 		return '"'+ value +'"^^<http://www.w3.org/2001/XMLSchema#date>'
 	except:
-		raise ValueError("XSD encoding of dateTime failed")
+		raise ValueError("XSD encoding of date failed")
+
+def _XSD_encode_year(value):
+	try:
+		return '"'+ value +'"^^<http://www.w3.org/2001/XMLSchema#gYear>'
+	except:
+		raise ValueError("XSD encoding of year failed")
 
 def update_triple(triple, pos, func, *params):
 	tlist = list(triple)
@@ -61,7 +67,9 @@ class SPARQLRequest(object):
 			'string': _XSD_encode_string,
 			'dateTime': _XSD_encode_dateTime,
 			'datetime': _XSD_encode_dateTime,
-			'date': _XSD_encode_date
+			'date': _XSD_encode_date,
+			'year': _XSD_encode_year,
+			'gYear': _XSD_encode_year
 		}
 		self.resource = resource.uri
 		self.triples = resource.to_triples()

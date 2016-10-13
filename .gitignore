@@ -1,2 +1,6 @@
 *.pyc
+.pypirc
+build/
+dist/
+dozer.egg-info/
 sample/env.*.sh
