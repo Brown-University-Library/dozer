@@ -31,7 +31,7 @@ def _XSD_encode_uri(value):
 def _XSD_encode_string(value):
 	try:
 		# escaped_quotes = value.replace('"', '\"')
-		return '"'+ value +'"'
+		return '"'+ value +'"^^<http://www.w3.org/2001/XMLSchema#string>'
 	except:
 		raise ValueError("XSD encoding of string failed")
 
