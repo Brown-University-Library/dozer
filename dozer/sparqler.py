@@ -234,7 +234,7 @@ def write_statement(triple):
 	return "{0}{1}{2}.".format(*triple)
 
 def optionalize_statement(triple):
-	return "OPTIONAL{{{0}}}".format(triple)
+	return "UNION{{{0}}}".format(triple)
 
 def write_optional(triple):
 	return optionalize_statement(write_statement(triple))
@@ -251,6 +251,7 @@ def build_construct_query(graph, required, optional):
 		for triple in optional:
 			stmt = write_statement(triple)
 			construct += stmt
+			where = "{" + where + "}"
 			optl = write_optional(triple)
 			where += optl
 	qbody = constructTemplate.format(construct, graph, where)
